@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment: MyString
+  complete: false
+  note: MyString
+  name: MyString
+  start_time: 2020-11-15 17:06:20
+  time_for_completion: 2020-11-15 17:06:20
+  group: one
+  category: one
+
+two:
+  comment: MyString
+  complete: false
+  note: MyString
+  name: MyString
+  start_time: 2020-11-15 17:06:20
+  time_for_completion: 2020-11-15 17:06:20
+  group: two
+  category: two

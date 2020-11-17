@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
-    helper_method :current_user
+    helper_method :current_user, :logged_in?
 
     def current_user
-        current_user ||= User.find_or_create_by(:username => params[:user][:username])
+        current_user ||= User.find_by(:username => params[:user][:username]) if session[:user_id]
+    end
+
+    def logged_in?
+        !current_user.nil?
     end
 end

@@ -9,15 +9,22 @@ class UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
+        group = Group.create
+        @user.group = group
         if @user.save
         session[:user_id] = @user.id
-        redirect_to :show
+        redirect_to user_path(@user)
         else
-            render :new
+            redirect_to '/'
         end
     end
 
     def show
+        if session[:user_id]
+           @user = User.find(session[:user_id])  
+        else
+            redirect_to '/'
+        end
     end
     
     private
@@ -29,6 +36,9 @@ class UsersController < ApplicationController
         :email,
         :group_id,
         :admin
+        # group_attributes: [
+        #     :name
+        # ]
         )
     end
 end

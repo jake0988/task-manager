@@ -1,14 +1,21 @@
 <h1>Sign Up</h1>
+  <% if !@user.errors.empty? %>
+  <%= @user.errors.each do |e| %>
+  <%=   e %><br>
+  <%  end %>
+  <%  end %>
 
 <%= form_for @user do |f| %>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-    </br>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-    </br>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-    </br>
-     <%= f.submit %>
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  </br>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  </br>
+  <%= f.label :admin %>
+  <%= f.check_box :admin %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  </br>
+  <%= f.submit %>
 <% end %>

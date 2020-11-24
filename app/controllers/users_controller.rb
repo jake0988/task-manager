@@ -5,21 +5,23 @@ class UsersController < ApplicationController
 
     def new
         @user = User.new
+        @group = Group.all
     end
 
     def create
-        @user = User.new(user_params)
-        group = Group.create
-        @user.group = group
-        if @user.save
-        session[:user_id] = @user.id
-        redirect_to user_path(@user)
+        @user = User.create(user_params)
+        
+        if @user.save && @user.authenticate(params[:user][:password])
+            session[:user_id] = @user.id
+            redirect_to @user
         else
-            redirect_to '/'
+            render :new
         end
     end
 
     def show
+        
+        # redirect_if_not_logged_in
         if session[:user_id]
            @user = User.find(session[:user_id])  
         else
@@ -34,11 +36,7 @@ class UsersController < ApplicationController
         :username,
         :password,
         :email,
-        :group_id,
         :admin
-        # group_attributes: [
-        #     :name
-        # ]
         )
     end
 end

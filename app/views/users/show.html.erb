@@ -1,1 +1,13 @@
-show
+<h1>Welcome <%= @user.username %></h1>
+
+          <h1>All Tasks</h1>
+
+<% if current_user.tasks %>
+<% current_user.tasks.each do |task| %>
+<%= task.name %><br>
+<% end %>
+<% end %>
+
+<%= render inline "tasks/new" %>
+
+<%= link_to 'logout', logout_path, :confirm => "Are you sure?", method: 'delete'  %>

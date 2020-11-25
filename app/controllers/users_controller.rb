@@ -5,12 +5,11 @@ class UsersController < ApplicationController
 
     def new
         @user = User.new
-        @group = Group.all
     end
 
     def create
         @user = User.create(user_params)
-        
+        binding.pry
         if @user.save && @user.authenticate(params[:user][:password])
             session[:user_id] = @user.id
             redirect_to @user

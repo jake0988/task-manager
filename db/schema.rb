@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_013303) do
+ActiveRecord::Schema.define(version: 2020_11_25_002807) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "group_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -31,19 +38,11 @@ ActiveRecord::Schema.define(version: 2020_11_24_013303) do
     t.string "name"
     t.datetime "start_time"
     t.datetime "time_for_completion"
-    t.integer "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "category_id"
-    t.index ["category_id"], name: "index_tasks_on_category_id"
-    t.index ["group_id"], name: "index_tasks_on_group_id"
-  end
-
-  create_table "user_groups", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "group_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_tasks_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,5 +54,4 @@ ActiveRecord::Schema.define(version: 2020_11_24_013303) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "tasks", "groups"
 end

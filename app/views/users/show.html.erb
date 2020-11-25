@@ -2,8 +2,8 @@
 
           <h1>All Tasks</h1>
 
-<% if current_user.tasks %>
-<% current_user.tasks.each do |task| %>
+<% if !@user.tasks.empty? %>
+<% @user.tasks.each do |task| %>
 <%= task.name %><br>
 <% end %>
 <% end %>

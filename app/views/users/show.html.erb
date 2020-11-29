@@ -8,6 +8,6 @@
 <% end %>
 <% end %>
 
-<%= render inline "tasks/new" %>
+<%= link_to "Add a task", new_user_task_path(@user) %>
 
 <%= link_to 'logout', logout_path, :confirm => "Are you sure?", method: 'delete'  %>

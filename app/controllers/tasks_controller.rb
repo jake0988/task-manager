@@ -2,16 +2,19 @@ class TasksController < ApplicationController
   before_action :redirect_if_not_logged_in
 
   def index
+    @task = Task.all
   end
 
   def new
-    @task = Task.new
+   @task = Task.new
+   @user = User.find_by(:id => session[:user_id])
   end
 
   def create
+    @task = current_user.tasks.build(task_params)
     if current_user
       # xcatm = Category.find_or_create_by(:name => params[:task][:category][:name])
-      @task = current_user.tasks.build(task_params)
+      current_user.tasks << @task
       # task.group = current_user.group
       # id = current_user.id
       redirect_to user_path(current_user)

@@ -5,7 +5,12 @@
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.hidden_field :start_time %>
-
-  
+  <%= f.label :category_name, "Category"  %>
+  <%= f.text_field :category_name, list: "categories_autocomplete" %>
+   <datalist id="categories_autocomplete">
+    <%= Category.all.each do |category| %>
+      <option value=<%= category.name %>>
+      <% end %>
+   </datalist>
   <%= f.submit %>
 <% end %>

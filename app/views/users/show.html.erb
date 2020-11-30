@@ -2,9 +2,14 @@
 
           <h1>All Tasks</h1>
 
-<% if !@user.tasks.empty? %>
-<% @user.tasks.each do |task| %>
-<%= task.name %><br>
+<%= @category.each do |category| %>
+ <div> category.name 
+<ul> 
+<% @category.tasks.each do |task| %>
+<li><%= task.name %></li><br>
+</div>
+<% end %>
+</ul>
 <% end %>
 <% end %>
 

@@ -29,9 +29,7 @@ class TasksController < ApplicationController
       :user_id,
       :name,
       :startime,
-      category: [
-      :name
-      ]
+      :category_name
       )
     end
 end

@@ -22,7 +22,8 @@ class UsersController < ApplicationController
         # redirect_if_not_logged_in
         if session[:user_id]
            @user = User.find(session[:user_id])
-           @categories = @user.category_array  
+           @categories = @user.category_array if @user.category_array
+           binding.pry
         else
             redirect_to '/'
         end

@@ -6,8 +6,9 @@
  <div> <%= category.name %>
   <ul> 
     <% category.tasks.each do |task| %>
-      <li><%= task.name %></li><br>
-
+      <% if @user.tasks.include?(task)%>
+          <li><%= task.name  %></li><br>
+       <% end%>
 <% end %>
     </div>
     </ul>

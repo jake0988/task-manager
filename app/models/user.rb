@@ -5,14 +5,17 @@ class User < ApplicationRecord
   has_many :groups, through: :group_users
   has_many :tasks
   has_many :categories, through: :tasks
-
-  def group_name=(name)
-    self.group = Group.find_or_create_by(name: group_name)
-  end
-
-  def group_name
-    self.group ? self.group.name : nil
-  end
+  
+  # def group_names=(name)
+  #     group = Group.find_or_create_by(name: group_name)
+  #     if !self.group.include?(group)
+  #       self.groups << group
+  #     end
+  # end
+  
+  # def group_names
+  #   self.groups
+  # end
 
   def category_array
     self.tasks.map do |task|

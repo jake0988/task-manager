@@ -1,6 +1,6 @@
 <h1>Welcome <%= @user.username %></h1>
 
-          <h1>All Tasks</h1>
+          <h1>All Of Your Tasks</h1>
 
 <% @categories.each do |category| %>
  <div> <%= category.name %>
@@ -14,6 +14,11 @@
     </ul>
 <% end %>
 
-<%= link_to "Add a task", new_user_task_path(@user) %>
+<div><h1>Groups: </h1>
+<% @user.groups.each do |group| %>
+  <%=link_to group.name, user_group_path(@user, group) %><br>
+  <% end %>
 
+<%= link_to "Create a Group", new_user_group_path(@user) %>
+<%= link_to "Add a task", new_user_task_path(@user) %>
 <%= link_to 'logout', logout_path, :confirm => "Are you sure?", method: 'delete'  %>

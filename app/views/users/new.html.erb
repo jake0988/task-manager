@@ -17,5 +17,12 @@
   <%= f.label :password %>
   <%= f.password_field :password %>
   </br>
+    <% if @groups %>
+  <%= f.fields_for(@groups) do |build| %>
+  <%= build.label :name, "Join Group?" %>
+  <%= build.collection_check_boxes :name, Group.all, :id, :name %><br>
+  <%= build.submit %>
+<% end %>
+<% end %>
   <%= f.submit %>
 <% end %>

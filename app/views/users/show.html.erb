@@ -2,15 +2,15 @@
 
           <h1>All Tasks</h1>
 
-<%= @category.each do |category| %>
- <div> category.name 
-<ul> 
-<% @category.tasks.each do |task| %>
-<li><%= task.name %></li><br>
-</div>
+<% @categories.each do |category| %>
+ <div> <%= category.name %>
+  <ul> 
+    <% category.tasks.each do |task| %>
+      <li><%= task.name %></li><br>
+
 <% end %>
-</ul>
-<% end %>
+    </div>
+    </ul>
 <% end %>
 
 <%= link_to "Add a task", new_user_task_path(@user) %>

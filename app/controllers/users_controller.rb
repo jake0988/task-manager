@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
     def create
         @user = User.create(user_params)
-        binding.pry
         if @user.save && @user.authenticate(params[:user][:password])
             session[:user_id] = @user.id
             redirect_to @user
@@ -23,7 +22,7 @@ class UsersController < ApplicationController
         # redirect_if_not_logged_in
         if session[:user_id]
            @user = User.find(session[:user_id])
-           @category = User.categories  
+           @categories = @user.category_array  
         else
             redirect_to '/'
         end

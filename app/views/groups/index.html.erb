@@ -2,17 +2,18 @@
 <div><% if @user.groups.include?(group)%>
           <%= group.name %>
           <% else %>
-    <% form_for group do |f| %>
-    <%= f.label :join_group %>
-    <%= f.check_box :join_group  %>
-    
+      
+      <%= form_for group do |f| %>
+        <%= f.label :name, group.name %>
+        <%= f.check_box :name %>
+        <%= f.submit "Join Group" %>
+      <% end%>
 <ul>
-      <% @group.tasks.each do |task| %>
+      <% group.tasks.each do |task| %>
       <%= task.name  %>
 </ul>
       <% end %>
-      <%= f.submit %>
       </div>
     <% end %>
     <% end %>
-    <% end %>
+    

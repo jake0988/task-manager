@@ -1,9 +1,15 @@
 require 'pry'
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :group_names  
+  helper_method :current_user, :logged_in?, :group_names, :join_group
 
   private
+
+
+  def join_group
+    current_user.groups << self
+  end
+
     def current_user
         @current_user ||= User.find_by(:id => session[:user_id]) if session[:user_id]
     end

@@ -20,5 +20,6 @@
   <% end %>
 
 <%= link_to "Create a Group", new_user_group_path(@user) %>
+<%= link_to "Join a Group", groups_path %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
 <%= link_to 'logout', logout_path, :confirm => "Are you sure?", method: 'delete'  %>

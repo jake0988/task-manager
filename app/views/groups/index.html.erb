@@ -1,1 +1,18 @@
-Index
+<% @groups.each do |group| %>
+<div><% if @user.groups.include?(group)%>
+          <%= group.name %>
+          <% else %>
+    <% form_for group do |f| %>
+    <%= f.label :join_group %>
+    <%= f.check_box :join_group  %>
+    
+<ul>
+      <% @group.tasks.each do |task| %>
+      <%= task.name  %>
+</ul>
+      <% end %>
+      <%= f.submit %>
+      </div>
+    <% end %>
+    <% end %>
+    <% end %>

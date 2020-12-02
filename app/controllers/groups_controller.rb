@@ -1,7 +1,8 @@
 class GroupsController < ApplicationController
   
   def index
-    @group = Group.all
+    @groups = Group.all
+    @user = User.find_by(id: session[:user_id])
   end
 
   def new
@@ -27,9 +28,10 @@ class GroupsController < ApplicationController
   private
   def group_params
     params.require(:group).permit(
-      :name
+      :name,
       task: [
         :start
       ]
     )
+    end
 end

@@ -2,7 +2,6 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.all
-    if session[:user_id]
     @user = User.find_by(id: session[:user_id])
     else
       flash[:message] = "User must be logged in to view groups"
@@ -43,7 +42,6 @@ class GroupsController < ApplicationController
     group = Group.find_by(id: params[:id])
     group = Group.update(group_params)
     redirect_to user_path(session[user_id])
-    binding.pry
   end
 
   private

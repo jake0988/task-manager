@@ -8,15 +8,16 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-  
-
 
   delete '/logout', to: 'sessions#destroy', as: 'logout'
+  
   resources :users, only: [:show] do
     resources :tasks, only: [:new, :create]
     resources :groups, only: [:new, :create, :show]
   end
 
+  patch '/users/:id/edit', to: 'users#update'
+  resources :users
   resources :groups
   resources :categories
   

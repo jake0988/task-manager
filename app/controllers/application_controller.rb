@@ -1,7 +1,7 @@
 require 'pry'
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :group_names, :join_group
+  helper_method :current_user, :logged_in?, :group_name, :join_group
 
   private
 

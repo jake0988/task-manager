@@ -2,7 +2,12 @@ class GroupsController < ApplicationController
   
   def index
     @groups = Group.all
+    if session[:user_id]
     @user = User.find_by(id: session[:user_id])
+    else
+      flash[:message] = "User must be logged in to view groups"
+      redirect_to '/'
+    end
   end
 
   def new
@@ -12,7 +17,7 @@ class GroupsController < ApplicationController
   def create
     user = User.find_by(id: session[:user_id])
     @group = Group.create(group_params)
-    binding.pry
+    
     redirect_to user_path(user)
   end
 
@@ -33,6 +38,7 @@ class GroupsController < ApplicationController
   def update
     group = Group.find_by(id: params[:id])
     group = Group.update(group_params)
+    redirect_to user_path(session[user_id])
     binding.pry
   end
 

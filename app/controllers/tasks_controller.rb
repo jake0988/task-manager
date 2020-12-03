@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @task = Task.all
+    @user = User.find_by(id: current_user.id)
   end
 
   def new
@@ -12,7 +13,8 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    if current_user
+    user = User.find_by(id: session[:id])
+    if user && user.authenticate(session[:id])
       # xcatm = Category.find_or_create_by(:name => params[:task][:category][:name])
       current_user.tasks << @task
       # task.group = current_user.group

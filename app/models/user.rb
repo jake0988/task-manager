@@ -7,6 +7,14 @@ class User < ApplicationRecord
   has_many :categories, through: :tasks
   
 
+  def group_name=(name)
+    Group.find_or_create_by(name: name)
+  end
+
+  def group_name
+    self.groups.where()
+  end
+
 
   def category_array
     self.tasks.map do |task|

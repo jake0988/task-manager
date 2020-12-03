@@ -20,14 +20,14 @@ cb = Category.create(name: "Board Games")
 cd = Category.create(name: "Shopping")
 ce = Category.create(name: "Programming")
 
-ta = Task.create(name: "Basketball")
-tb = Task.create(name: "Chess")
-tc = Task.create(name: "Turkey")
-td = Task.create(name: "C++")
+ta = Task.new(name: "Basketball")
+tb = Task.new(name: "Chess")
+tc = Task.new(name: "Turkey")
+td = Task.new(name: "C++")
 
 User.all.each do |user|
-  Group.all.each do |group|
-    user.groups << group
+  Task.all.each do |task|
+    user.tasks << task
   end
 end
 

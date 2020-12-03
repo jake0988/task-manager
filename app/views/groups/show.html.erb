@@ -2,7 +2,6 @@
 <h2>Group Tasks: </h2>
 <ul>
 <% @group.tasks.each do |task|%>
-<%= task.name %>
-<%= form_for task, user_group_path(@user_@group) %>
-<%= f.check_box :start, 'Start task' %>
-<%= f.check_box :start %>
+<li><%= task.name %><br></li>
+<% end %>
+</ul>

@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  
+
   def index
     @groups = Group.all
     if session[:user_id]
@@ -16,16 +16,20 @@ class GroupsController < ApplicationController
 
   def create
     user = User.find_by(id: session[:user_id])
-    @group = Group.create(group_params)
-    
-    redirect_to user_path(user)
+    if user
+      group = Group.create(group_params)    
+      user.groups << group
+      redirect_to user_path(user)
+    else
+      render :new
+    end
   end
 
   def show
     user = User.find_by(id: session[:user_id])
-    if user && user.authenticate(session[:user_id])
+    if user
       @group = Group.find_by(params[:id])
-      task = find_by(id: params[:task_id])
+      task = Task.find_by(id: params[:task_id])
     else
       redirect_to '/'
     end
@@ -51,4 +55,5 @@ class GroupsController < ApplicationController
       ]
     )
     end
+
 end

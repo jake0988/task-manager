@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+    before_action :require_login
+    skip_before_action :require_login, only: [:index]
+
     def index
         render :home
     end
@@ -18,15 +21,9 @@ class UsersController < ApplicationController
     end
 
     def show
-        
-        # redirect_if_not_logged_in
-        if User.find(session[:user_id])
-            @user = User.find(session[:user_id])
-            @categories = @user.category_array if @user.category_array
-           @groups = Group.all
-        else
-            redirect_to '/'
-        end
+        @user = User.find(session[:user_id])
+        @categories = @user.category_array if @user.category_array
+        @groups = Group.all
     end
 
     def edit
@@ -34,8 +31,7 @@ class UsersController < ApplicationController
     end
 
     def update
-        if User.find_by(id: session[:user_id])
-            user = User.find_by(id: session[:user_id])
+        if user = User.find_by(id: session[:user_id])
             user.update(user_params)
             redirect_to user_path(user)
         else
@@ -52,9 +48,11 @@ class UsersController < ApplicationController
         :password,
         :email,
         :admin,
-        group: [
+        group_ids:[],
+        groups: [
             :name
         ]
         )
     end
+
 end

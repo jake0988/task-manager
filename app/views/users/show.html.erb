@@ -20,11 +20,11 @@
 
 <div><h1>Groups: </h1>
 <% @user.groups.each do |group| %>
-  <%=link_to group.name, user_groups_path(@user, group) %><br>
+  <%=link_to group.name, user_group_path(@user, group) %><br>
   <% end %>
 
 <%= link_to "View All Groups", groups_path %>
 <%= link_to "Create a Group", new_user_group_path(@user) %>
-<%= link_to "Join a Group", edit_user_path(@user) %>
+<%= link_to "Join or Leave a Group", edit_user_path(@user) %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
 <%= link_to 'logout', logout_path, :confirm => "Are you sure?", method: 'delete'  %>

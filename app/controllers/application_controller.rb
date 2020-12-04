@@ -23,6 +23,8 @@ class ApplicationController < ActionController::Base
     end
 
     def require_login
-      return head(:forbidden) unless session.include? current_user
+      if !logged_in?
+        redirect_to login_path, :notice => "Please login first!"
+      end
     end
 end

@@ -1,14 +1,29 @@
 <h1>New Task</h1>
 
-<%= form_for [@user, @task] do |f| %>
+<% if @task.errors.any? %>
+  <div id="error_explanation">
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= form_for(@task) do |f| %>
+  <%= f.label :name, "Task Name" %>
+  <%= f.text_field :name, placeholder: "Required Field" %>
   <%= f.label :category_name, "Select or Add a Category"  %>
-  <%= f.text_field :category_name, list: "categories_autocomplete" %>
+  <em><%= f.text_field :category_name, list: "categories_autocomplete", placeholder: "Required Field" %></em>
    <datalist id="categories_autocomplete">
     <% Category.all.each do |category| %>
       <option value=<%= category.name %>>
+      <% end %>
+   </datalist>
+   <%= f.label :group_autocomplete, "Choose Which Group This Task Belongs To"  %>
+  <%= f.text_field :group_name, list: "group_autocomplete" , placeholder: "Required Selection"%>
+   <datalist id="group_autocomplete">
+    <% @user.groups.each do |group| %>
+      <option value=<%= group.name %>>
       <% end %>
    </datalist>
   <%= f.submit %>

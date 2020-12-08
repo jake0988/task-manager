@@ -43,15 +43,19 @@ class UsersController < ApplicationController
     private
 
     def user_params
-        params.require(:user).permit(
-        :username,
-        :password,
-        :email,
-        :admin,
-        group_ids:[],
-        groups: [
-            :name
-        ]
+        params.require(:user).permit(                            
+          :username,
+          :password,
+          :email,
+          :admin,
+          group_ids:[],
+          groups: [
+              :name
+          ],
+          tasks_attributes: [ 
+          :comment,
+          :complete
+          ]
         )
     end
 

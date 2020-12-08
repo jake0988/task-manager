@@ -12,4 +12,12 @@ class Task < ApplicationRecord
   def category_name
     self.category ? self.category.name : nil
   end
+
+  def group_name=(name)
+    self.group = Group.find_or_create_by(:name => name)
+  end
+
+  def group_name
+    self.group ? self.group.name : nil
+  end
 end

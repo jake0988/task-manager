@@ -2,15 +2,20 @@
 <div><p><h1>Group Name:<%= group.name %></h1></p>
       <div><ol>
       <% group.users.each do |user| %>
+      <h2>Group Members:</h2>
               <% if user.username != nil  %>
+               <% binding.pry %>
         <li><strong><%= user.username %></strong><li>
             <% end %>
-      <% end %></div>      
+
+      <% end %></ol></div>      
       <% group.categories.each do |category| %>
         <div><h2>Category Name: <%= category.name %></h2>
             <i>Tasks: </i>
             <% category.tasks.each do |task| %>
+           
               <div><%= task.name %><br>
             <% end %></div>
+
       <% end %></div>   
 <% end %></div>    

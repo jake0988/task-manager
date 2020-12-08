@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :tasks
   has_many :categories, through: :tasks
   validates_presence_of :username
+  accepts_nested_attributes_for :tasks
 
 
   def category_array

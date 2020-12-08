@@ -14,24 +14,34 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     user = User.find_by(id: session[:id])
-    if user && user.authenticate(session[:id])
-      # xcatm = Category.find_or_create_by(:name => params[:task][:category][:name])
-      current_user.tasks << @task
-      # task.group = current_user.group
-      # id = current_user.id
+    @task.start_time = Time.current 
+    current_user.tasks << @task
+
       redirect_to user_path(current_user)
-    else
-      render :new
-    end
   end
+
+  def edit
+    @task = Task.find_by(user_id: session[:user_id], id: params[:id])
+    @user = session[:user_id]
+  end
+
+  def update
+    task = Task.find_by(user_id: session[:user_id], id: params[:id])
+    task.update(task_params)
+    user = User.find_by(id: session[:user_id])
+    redirect_to user_path(user)
+  end
+
 
   private
     def task_params
       params.require(:task).permit(
       :user_id,
       :name,
+      :comment,
       :startime,
-      :category_name
+      :category_name,
+      :group_name
       )
     end
 end

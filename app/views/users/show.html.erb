@@ -11,7 +11,10 @@
   <ul> 
     <% category.tasks.each do |task| %>
       <% if @user.tasks.include?(task)%>
-          <li><%= task.name  %></li><br>
+          <p><li><%= task.name  %></li>
+          <b>Comment:</b> <em><%= task.comment %></em></p>
+         <%= link_to "Add Comment", edit_user_tasks_path(@user, task) %>
+         <%= link_to "Completed?" %>
        <% end%>
 <% end %>
     </div>

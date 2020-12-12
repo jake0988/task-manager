@@ -14,6 +14,7 @@ class Task < ApplicationRecord
   end
 
   def group_name=(name)
+    binding.pry
     self.group = Group.find_or_create_by(:name => name)
   end
 

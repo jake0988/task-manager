@@ -20,7 +20,7 @@
     <% if @groups %>
   <%= f.fields_for(@groups) do |build| %>
   <%= build.label :name, "Join Group?" %>
-  <%= build.collection_check_boxes :name, Group.all, :id, :name %><br>
+  <%= build.collection_check_boxes :group_name, Group.all, :name, :name %><br>
   <%= build.submit %>
 <% end %>
 <% end %>

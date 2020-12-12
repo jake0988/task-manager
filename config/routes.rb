@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root to: 'users#index'
 
+  get '/auth/github/callback' => 'sessions#create'
+
   get '/signup', to: 'users#new', as: 'users'
   post '/signup', to: 'users#create'
 

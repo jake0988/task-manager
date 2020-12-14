@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :groups, through: :tasks
   has_many :categories, through: :tasks
   validates_presence_of :username
+  validates :group, uniqueness: true
   accepts_nested_attributes_for :tasks
 
 

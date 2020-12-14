@@ -32,8 +32,19 @@ class UsersController < ApplicationController
 
     def update
         if user = User.find_by(id: session[:user_id])
-            user.update(user_params)
-            redirect_to user_path(user)
+            group = Group.find(params[:user][:group][:id])
+            if params[:commit] == "Leave Group"
+                user.groups.delete(group)
+                redirect_to user_path(user)
+            else
+                if group.tasks.empty?
+                    flash[:message] = "A Group must have a task before joining. First assign a task to your Group."
+                    redirect_to new_user_task_path(user)
+                else
+                    user.groups << group
+                    redirect_to user_path(user)
+                end
+            end
         else
             flash[:message] = "User must sign in before updating profile"
             redirect_to '/'
@@ -49,7 +60,7 @@ class UsersController < ApplicationController
           :email,
           :admin,
           group_ids:[],
-          groups: [
+          group: [
               :name
           ],
           tasks_attributes: [ 

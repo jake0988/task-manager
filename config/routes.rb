@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     resources :tasks, only: [:new, :create, :update]
-    resources :groups, only: [:new, :create, :update]
+    resources :groups, only: [:new, :create, :show, :update]
   end
 
   patch '/users/:id/edit', to: 'users#update'

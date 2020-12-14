@@ -9,7 +9,7 @@
   </div>
 <% end %>
 
-<%= form_with(@task) do |f| %>
+<%= form_for(@task) do |f| %>
   <%= f.label :name, "Task Name" %>
   <%= f.text_field :name, placeholder: "Required Field" %>
   <%= f.label :category_name, "Select or Add a Category"  %>
@@ -19,12 +19,6 @@
       <option value=<%= category.name %>>
       <% end %>
    </datalist>
-   <%= f.label :group_autocomplete, "Choose Which Group This Task Belongs To"  %>
-  <%= f.text_field :group_name, list: "group_autocomplete" , placeholder: "Required Selection"%>
-   <datalist id="group_autocomplete">
-    <% @user.groups.each do |group| %>
-      <option value=<%= group.name %>>
-      <% end %>
-   </datalist>
+  Group: <%= f.collection_select :group_name, Group.all, :name, :name %>
   <%= f.submit %>
 <% end %>

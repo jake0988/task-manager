@@ -5,3 +5,10 @@
 <li><%= task.name %><br></li>
 <% end %>
 </ul>
+
+<h3>Group Members:</h3>
+<ul>
+<% @group.users.each do |user|%>
+<li><%= user.username %><br></li>
+<% end %>
+</ul>

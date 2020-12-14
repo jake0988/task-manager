@@ -21,12 +21,12 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find_by(user_id: session[:user_id], id: params[:id])
-    @user = session[:user_id]
+    @task = Task.find_by(id: params[:task_id])
+    @user = User.find_by(id: session[:user_id])
   end
 
   def update
-    task = Task.find_by(user_id: session[:user_id], id: params[:id])
+    task = Task.find_by(user_id: session[:user_id], id: params[:task][:id])
     task.update(task_params)
     user = User.find_by(id: session[:user_id])
     redirect_to user_path(user)
@@ -36,6 +36,7 @@ class TasksController < ApplicationController
   private
     def task_params
       params.require(:task).permit(
+      :id,
       :user_id,
       :name,
       :comment,

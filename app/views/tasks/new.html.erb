@@ -9,7 +9,7 @@
   </div>
 <% end %>
 
-<%= form_for(@task) do |f| %>
+<%= form_with(@task) do |f| %>
   <%= f.label :name, "Task Name" %>
   <%= f.text_field :name, placeholder: "Required Field" %>
   <%= f.label :category_name, "Select or Add a Category"  %>

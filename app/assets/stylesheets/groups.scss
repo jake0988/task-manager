@@ -1,3 +1,21 @@
 // Place all the styles related to the Groups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.group-box {
+  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  border: 1px solid #ccc;
+  border-color: #eccbaa;
+  margin-top: 10px;
+}
+.group-box.color-1 { background-color: #df494e;}
+.group-box.color-2 { background-color: #68a5b7;}
+.group-box.color-3 { background-color: #8f978e;}
+.group-box.color-4 { background-color: #d8b6ad;}
+.group-box.color-5 { background-color: #677b94;}
+.group-box.color-6 { background-color: #677b94;}
+.group-box.color-7 { background-color: #66be98;}
+.group-box.color-8 { background-color: #fcd06d;}
+.group-box.color-9 { background-color: #f8a427;}
+.group-box.color-10 { background-color: #d42b14;}

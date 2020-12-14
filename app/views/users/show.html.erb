@@ -28,6 +28,5 @@
 </div>
 <%= link_to "View All Groups", groups_path %>
 <%= link_to "Create, Join, or Leave a Group", new_user_group_path(@user) %>
-<%= link_to "Join or Leave a Group", edit_user_group_path(@user) %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
 <%= link_to 'logout', logout_path, :confirm => "Are you sure?", method: 'delete'  %>

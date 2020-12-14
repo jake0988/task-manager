@@ -5,3 +5,6 @@
   <%= f.text_field :name %>
   <%= f.submit %>
 <% end %>
+
+<%= form_for(@user) do |f| %>
+<%= f.collection_select  %>

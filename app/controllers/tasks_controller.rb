@@ -7,8 +7,16 @@ class TasksController < ApplicationController
   end
 
   def new
-   @task = Task.new
-   @user = User.find_by(:id => session[:user_id])
+    if params[:user_id] && @user = User.find_by(:id => params[:user_id])
+      @task = @user.tasks.build
+      binding.pry
+    else
+      @error = "That task doesn't exist."
+      @task = Task.all
+
+    end
+  #     @task = Task.new
+  #  @user = User.find_by(:id => session[:user_id])
   end
 
   def create

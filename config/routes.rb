@@ -15,24 +15,26 @@ Rails.application.routes.draw do
   
   post '/tasks', to: 'tasks#create'
 
+  patch '/users/:id/edit', to: 'users#update'
+
   get '/users/:user_id/tasks/:id/comment', to: 'tasks#edit', as: 'comment_user_tasks'
 
   get '/users/:user_id/tasks/:id/edit', to: 'tasks#edit', as: 'edit_user_tasks'
   
+  get 'users/:user_id/tasks/:id/:complete', to: 'tasks#edit', as: 'complete_user_task'
+
   patch '/tasks', to: 'tasks#update'
 
   get '/users/:user_id/groups/edit', to: 'groups#edit', as: 'edit_user_groups'
-
-  get 'users/:user_id/tasks/:id/:complete', to: 'tasks#edit', as: 'complete_user_task'
 
   resources :users, only: [:show] do
     resources :tasks, only: [:new, :create, :update]
     resources :groups, only: [:new, :create, :show, :update]
   end
 
-  patch '/users/:id/edit', to: 'users#update'
+  
   resources :users
-  resources :groups, only: [:index]
+  resources :groups, only: [:index, :show]
   resources :categories
   
   resources :sessions, only: [:new, :create, :show]

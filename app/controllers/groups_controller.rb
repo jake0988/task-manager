@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   
 
   def index
-      @groups = Group.all
+    @groups = Group.all
   end
   
   def new
@@ -25,20 +25,22 @@ class GroupsController < ApplicationController
     end
   end
 
-  # def show
-  #   user = User.find_by(id: session[:user_id])
-  #   binding.pry
-  #   if params[:user_id] && User.find_by_id(params[:user_id])
-  #     @groups = user.groups
-  #   else
-  #     flash[:message] = "That user doesn't exist"
-  #     redirect_to ':index'
-  #   end
-  # end
+  def show
+    if params[:user_id] && @user = User.find_by_id(params[:user_id])
+      @group = Group.find_by_id(params[:id])
+    elsif params[:user_id]
+      flash[:message] = "That user doesn't exist"
+      redirect_to action: "index"
+    elsif @group = Group.find_by_id(params[:id])
+      else
+        flash[:message] = "That group doesn't exist"
+      redirect_to action: "index"
+    end
+  end
 
   def edit
-    @user = User.find_by(id: current_user.id)
-    if params[:user_id] && User.find_by_id(params[:user_id])
+    binding.pry
+    if params[:user_id] && @user = User.find_by_id(params[:user_id])
           @groups = @user.groups
     else
           flash[:message] = "That user doesn't exist"
@@ -47,14 +49,14 @@ class GroupsController < ApplicationController
   end
 
   def update
-    group = Group.find_by(id: params[:id])
+    group = Group.find_by_id(params[:id])
     group = Group.update(group_params)
     redirect_to user_path(session[user_id])
   end
 
-  def show
-    @group = Group.find_by_id(params[:id])
-  end
+  # def show
+  #   @group = Group.find_by_id(params[:id])
+  # end
 
   private
   def group_params

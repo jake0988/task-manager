@@ -1,17 +1,19 @@
-<h1>Welcome <%= @user.username %></h1>
+<h1>Welcome <%= @user.username %>!</h1>
 
-<% @categories.each do |category| %>
- <div class="group-box <%= category.id %> col-xs-10 col-xs-offset-1 color-<%= (1..10).to_a.sample %>">
- <p><h2>Category Name:</h2><%= category.name %>:</p>
+
+<% @user.groups.each do |group| %>
+<div class="group-box <%= group.id %> col-xs-10 col-xs-offset-1 color-<%= (1..10).to_a.sample %>">
+<h1>Groups Name: </h1><h3><%=link_to group.name, user_group_path(@user, group) %></h3><br>
+<% group.categories.each do |category| %>
+ <p><h2>Category Name: </h2><strong><%= category.name %></strong></p>
  
   <ol> 
-    <% category.tasks.each do |task| %>
+    <% group.tasks.each do |task| %>
       <h3>Tasks:<% if @user.tasks.include?(task)%></h3>
        <% if task.complete == true %>
           <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em></li>
                <b>Comment:</b> <em><%= task.comment %></em></p>
           <%= link_to "Add Comment", comment_user_tasks_path(@user, task) %>
-          
           <% else %>
            <p><em><li><%= task.name  %></li></em>
           <b>Comment:</b> <em><%= task.comment %></em></p>
@@ -23,14 +25,9 @@
    
     </ol>
 <% end %>
-
-<h1>Groups: </h1>
-<% @user.groups.each do |group| %>
-  <%=link_to group.name, user_group_path(@user, group) %><br>
   <% end %>
 </div>
-<%= link_to "View All Groups", groups_path %>
 <%= link_to "Create a Group", new_user_group_path(@user) %>
-<%= link_to "Join or Leave a Group", edit_user_path(@user) %>
+<%= link_to "Join or Leave a Group", groups_path %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
 <%= link_to 'logout', logout_path, :confirm => "Are you sure?", method: 'delete'  %>

@@ -31,3 +31,7 @@
 .group-box.color-8 { background-color: #fcd06d;}
 .group-box.color-9 { background-color: #f8a427;}
 .group-box.color-10 { background-color: #d42b14;}
+
+h1, h2, h3 {
+  display: inline;
+}

@@ -21,18 +21,22 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(session[:user_id])     
-        if params[:id].to_i != current_user.id
+        if params[:id] && @user = User.find_by_id(params[:id])     
+            @categories = @user.category_array if @user.category_array
+            @groups = Group.all
+        else
             flash[:message] = "Must be signed in as user to view user's page!"
-            redirect_to '/'
+            redirect_to :root
         end
-        
-        @categories = @user.category_array if @user.category_array
-        @groups = Group.all
     end
 
     def edit
-        @user = User.find_by(id: session[:user_id])
+        if params[:id] && @user = User.find_by_id(params[:id])
+            render :edit
+        else
+            flash[:message] = "Must be signed in as user to edit user's page!"
+            redirect_to :root
+        end
     end
 
     def update

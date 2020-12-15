@@ -1,5 +1,6 @@
 <% @groups.each do |group| %>
-<div class="group-box <%= group.id %> col-xs-10 col-xs-offset-1 color-<%= (1..10).to_a.sample %>"><p><h1>Group Name:<%= group.name %></h1></p>
+<div class="group-box <%= group.id %> col-xs-10 col-xs-offset-1 color-<%= (1..10).to_a.sample %>">
+<p><h1>Group Name: </h1><h3><%= link_to group.name, group_path(group) %></h3></p>
       <div><ol>
       <% group.users.each do |user| %>
       <h2>Group Members:</h2>
@@ -16,5 +17,10 @@
               <div><%= task.name %><br>
             <% end %></div>
             
-      <% end %></div>   
+      <% end %>  
+      <% if group.users.include?(current_user)%>
+      <%= link_to "Leave Group", edit_user_group_path(current_user, group) %>
+      <% else %>
+      <%= link_to "Join Group", edit_user_group_path(current_user, group) %>
+      <% end%></div> 
 <% end %></div>    

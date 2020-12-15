@@ -1,8 +1,18 @@
-<h1>Group Name: <%= @group.name %></h1><br>
-<h2>Group Tasks: </h2>
+<div><h1>Group Name: <%= @group.name %></h1><br>
+<% @group.categories.each do |category| %>
+<div><p><h2>Categories: </h2><strong><%= category.name %></strong><br></p>
+<div><h3>Tasks: </h3>
 <ul>
-<% @group.tasks.each do |task|%>
-<li><%= task.name %><br></li>
+<% category.tasks.each do |task|%>
+<% if task.complete == true %>
+<del><li><%= task.name %><br></li></del>
+Comment: <%= task.comment %>
+<% else %>
+  <li><%= task.name %><br></li>
+<% end%>
+</div>
+<% end%>
+</div>
 <% end %>
 </ul>
 
@@ -12,3 +22,4 @@
 <li><%= user.username %><br></li>
 <% end %>
 </ul>
+</div>

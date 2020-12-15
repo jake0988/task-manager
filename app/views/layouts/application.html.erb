@@ -35,7 +35,7 @@
     <!-- content -->
     <div class="container"  role="main">
     <div><% if flash[:message] %>
-      <%= flash[:message] %>
+      <strong><%= flash[:message] %></strong>
       <% end %>
       </div>
       <%= yield %>

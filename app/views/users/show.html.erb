@@ -1,7 +1,3 @@
-<% if flash[:message] != "" %>
-<%= flash[:message] %>
-<% end %>
-
 <h1>Welcome <%= @user.username %></h1>
 
 <% @categories.each do |category| %>
@@ -11,10 +7,17 @@
   <ol> 
     <% category.tasks.each do |task| %>
       <h3>Tasks:<% if @user.tasks.include?(task)%></h3>
-          <p><em><li><%= task.name  %></li></em>
+       <% if task.complete == true %>
+          <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em></li>
+               <b>Comment:</b> <em><%= task.comment %></em></p>
+          <%= link_to "Add Comment", comment_user_tasks_path(@user, task) %>
+          
+          <% else %>
+           <p><em><li><%= task.name  %></li></em>
           <b>Comment:</b> <em><%= task.comment %></em></p>
          <%= link_to "Add Comment", comment_user_tasks_path(@user, task) %>
-         <%= link_to "Completed?" %>
+         <%= link_to "Completed?", complete_user_task_path(@user, task, "true") %>
+        <% end%>
        <% end%>
 <% end %>
    

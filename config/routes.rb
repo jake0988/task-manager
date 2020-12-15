@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   get '/users/:user_id/groups/edit', to: 'groups#edit', as: 'edit_user_groups'
 
+  get 'users/:user_id/tasks/:id/:complete', to: 'tasks#edit', as: 'complete_user_task'
+
   resources :users, only: [:show] do
     resources :tasks, only: [:new, :create, :update]
     resources :groups, only: [:new, :create, :show, :update]

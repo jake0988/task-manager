@@ -21,7 +21,12 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(session[:user_id])
+        @user = User.find(session[:user_id])     
+        if params[:id].to_i != current_user.id
+            flash[:message] = "Must be signed in as user to view user's page!"
+            redirect_to '/'
+        end
+        
         @categories = @user.category_array if @user.category_array
         @groups = Group.all
     end

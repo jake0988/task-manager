@@ -23,6 +23,16 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find_by(id: params[:id])
     @user = User.find_by(id: session[:user_id])
+    if params[:complete] && params[:complete] == "true"
+      if @task.complete == true
+        flash[:message] = "Already Completed This Task"
+      else
+        @task.complete = true
+        @task.save!
+        binding.pry
+      end
+      redirect_to user_path(@user)
+    end
   end
 
   def update
@@ -42,6 +52,7 @@ class TasksController < ApplicationController
       :comment,
       :startime,
       :category_name,
+      :complete,
       :group_name
       )
     end

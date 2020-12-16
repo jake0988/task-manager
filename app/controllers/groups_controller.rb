@@ -39,13 +39,24 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    binding.pry
     if params[:user_id] && @user = User.find_by_id(params[:user_id])
-          @groups = @user.groups
+        group = Group.find_by_id(params[:id])
+        if @user.groups.include?(group)
+          @user.groups.delete(group)
+        else
+          
+          if !group.tasks.empty?
+            @user.groups << group
+          else
+            flash[:message] = "A Group must have a task and its category before joining. First assign a task with a category to your Group."
+          end
+        
+        end
     else
-          flash[:message] = "That user doesn't exist"
-          redirect_to ':index'
+        flash[:message] = "That user doesn't exist"
     end
+        @groups = Group.all
+        render :index
   end
 
   def update
@@ -53,10 +64,6 @@ class GroupsController < ApplicationController
     group = Group.update(group_params)
     redirect_to user_path(session[user_id])
   end
-
-  # def show
-  #   @group = Group.find_by_id(params[:id])
-  # end
 
   private
   def group_params

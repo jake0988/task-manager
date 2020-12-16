@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   patch '/tasks', to: 'tasks#update'
 
-  get '/users/:user_id/groups/edit', to: 'groups#edit', as: 'edit_user_groups'
+  get '/users/:user_id/groups/:id/edit', to: 'groups#edit', as: 'edit_user_group'
 
   resources :users, only: [:show] do
     resources :tasks, only: [:new, :create, :update]

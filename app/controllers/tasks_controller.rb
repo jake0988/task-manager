@@ -1,31 +1,29 @@
 class TasksController < ApplicationController
   before_action :redirect_if_not_logged_in
 
-  def index
-    @task = Task.all
-    @user = User.find_by(id: current_user.id)
-  end
-
   def new
     if params[:user_id] && @user = User.find_by(:id => params[:user_id])
       @task = @user.tasks.build
-      binding.pry
     else
       @error = "That task doesn't exist."
       @task = Task.all
 
     end
-  #     @task = Task.new
-  #  @user = User.find_by(:id => session[:user_id])
   end
 
   def create
+    @user = current_user
+    binding.pry
     @task = current_user.tasks.build(task_params)
-    user = User.find_by(id: session[:id])
-    @task.start_time = Time.current 
-    current_user.tasks << @task
-
-      redirect_to user_path(current_user)
+    if @task.save
+      redirect_to user_path(@user)
+    else
+      render :new
+    end
+    # @task.start_time = Time.current
+    # group = Group.find_by_id(params[:group])
+    # binding.pry
+    # @task.group.tasks.find_or_create_by(user_id: current_user.id, name: @task.name, group_id: group.name)
   end
 
   def edit
@@ -37,7 +35,6 @@ class TasksController < ApplicationController
       else
         @task.complete = true
         @task.save!
-        binding.pry
       end
       redirect_to user_path(@user)
     end
@@ -54,14 +51,16 @@ class TasksController < ApplicationController
   private
     def task_params
       params.require(:task).permit(
-      :id,
-      :user_id,
+      # :id,
+      # :user_id,
       :name,
-      :comment,
-      :startime,
-      :category_name,
-      :complete,
-      :group_name
+      # :comment,
+      # :startime,
+      :category_id,
+      # :category_attributes [:name],
+      # :complete,
+      :group_id
+      # :group_attributes [:name]
       )
     end
 end

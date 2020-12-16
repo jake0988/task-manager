@@ -12,13 +12,10 @@
 <%= form_for(@task) do |f| %>
   <%= f.label :name, "Task Name" %>
   <%= f.text_field :name, placeholder: "Required Field" %>
-  <%= f.label :category_name, "Select or Add a Category"  %>
-  <em><%= f.text_field :category_name, list: "categories_autocomplete", placeholder: "Required Field" %></em>
-   <datalist id="categories_autocomplete">
-    <% Category.all.each do |category| %>
-      <option value=<%= category.name %>>
-      <% end %>
-   </datalist>
-  Group: <%= f.collection_select :group_name, Group.all, :name, :name %>
+ <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: true %>
+ <%= f.fields_for :category do |c|%>
+    <%= c.text_field :name%>
+  <% end %>
+  Group: <%= f.collection_select :group_id, Group.all, :id, :name %>
   <%= f.submit %>
 <% end %>

@@ -9,15 +9,14 @@ class GroupsController < ApplicationController
   
   def new
     @group = Group.new
-    @user = User.find_by(id: session[:user_id])
+    @user = current_user
   end
 
   def create
-    @user = User.find_by(id: session[:user_id])
-    group = Group.new(group_params)    
+    @user = current_user
+    group = Group.new(group_params)   
       if @user && !@user.groups.include?(group.name)
         group.save
-      #   @user.groups << group
       flash[:message] = "#{group.name} has been created!"
       redirect_to edit_user_path(@user)
     else

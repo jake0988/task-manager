@@ -9,7 +9,7 @@
             <% end %>
 
       <% end %></ol></div>      
-      <% group.categories.each do |category| %>
+      <% group.categories.uniq.each do |category| %>
         <div><h2>Category Name: <%= category.name %></h2>
             <i>Tasks: </i>
             <% category.tasks.each do |task| %>

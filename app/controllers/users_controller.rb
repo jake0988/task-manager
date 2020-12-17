@@ -11,11 +11,9 @@ class UsersController < ApplicationController
     end
 
     def create
-        binding.pry
         @user = User.create(user_params)
         if @user.save && @user.authenticate(params[:user][:password])
             session[:user_id] = @user.id
-            binding.pry
             redirect_to @user
         else
             render :new
@@ -23,7 +21,8 @@ class UsersController < ApplicationController
     end
 
     def show
-        if params[:id] && @user = User.find_by_id(params[:id])     
+        if params[:id] && current_user = User.find_by_id(params[:id])
+            @user = current_user
             @categories = @user.category_array if @user.category_array
             @groups = Group.all
         else
@@ -42,24 +41,25 @@ class UsersController < ApplicationController
     end
 
     def update
-        if user = User.find_by(id: session[:user_id])
+            user = User.find_by_id(params[:id])
+            redirect_to groups_path if !user == current_user
+            binding.pry 
             group = Group.find(params[:user][:group][:id])
             if params[:commit] == "Leave Group"
                 user.groups.delete(group)
                 redirect_to user_path(user)
             else
-                if group.tasks.empty?
-                    flash[:message] = "A Group must have a task and its category before joining. First assign a task with a category to your Group."
-                    redirect_to new_user_task_path(user)
-                else
+                # if group.tasks.empty?
+                #     flash[:message] = "A Group must have a task and its category before joining. First assign a task with a category to your Group."
+                #     redirect_to new_user_task_path(user)
+                # else
                     user.groups << group
                     redirect_to user_path(user)
-                end
             end
-        else
-            flash[:message] = "User must sign in before updating profile"
-            redirect_to '/'
-        end
+        # else
+        #     flash[:message] = "User must sign in before updating profile"
+        #     redirect_to '/'
+        # end
     end
 
     private

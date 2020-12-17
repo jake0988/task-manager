@@ -9,7 +9,8 @@ class Task < ApplicationRecord
  
   def category_attributes=(name)
     self.category = Category.find_or_create_by(:name => name)
-    self.category.update(name)
+    
+    # self.category.update(name: name)
   end
 
   def category_attributes
@@ -18,7 +19,7 @@ class Task < ApplicationRecord
 
   def group_attributes=(name)
     self.group = Group.find_or_create_by(:name => name)
-    self.group.update(name)
+    # self.group.update(name: name)
   end
 
   def group_attributes

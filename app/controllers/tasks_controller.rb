@@ -2,12 +2,12 @@ class TasksController < ApplicationController
   before_action :redirect_if_not_logged_in
 
   def new
-    if params[:user_id] && @user = User.find_by(:id => params[:user_id])
+    if params[:user_id] && current_user = User.find_by(:id => params[:user_id])
+      @user = current_user
       @task = @user.tasks.build
     else
       @error = "That task doesn't exist."
       @task = Task.all
-
     end
   end
 
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     @user = current_user
     binding.pry
     @task = current_user.tasks.build(task_params)
-    if @task.save
+    if @user.save
       redirect_to user_path(@user)
     else
       render :new
@@ -56,11 +56,11 @@ class TasksController < ApplicationController
       :name,
       # :comment,
       # :startime,
-      :category_id,
-      # :category_attributes [:name],
+      # :category_id,
+      :category_attributes,
       # :complete,
-      :group_id
-      # :group_attributes [:name]
+      # :group_id
+      :group_attributes
       )
     end
 end

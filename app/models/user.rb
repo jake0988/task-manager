@@ -3,7 +3,8 @@ class User < ApplicationRecord
   has_many :goals
   has_many :task_users
   has_many :tasks, through: :task_users
-  has_many :groups, through: :goals
+  has_many :group_users
+  has_many :groups, through: :group_users
   has_many :categories, through: :tasks
   validates_presence_of :username
   validates :username, uniqueness: :true

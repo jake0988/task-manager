@@ -25,9 +25,17 @@ tb = Task.new(name: "Chess")
 tc = Task.new(name: "Turkey")
 td = Task.new(name: "C++")
 
+ga = Goal.new(name: "Have Fun")
+ga = Goal.new(name: "Friends Activity")
+ga = Goal.new(name: "Learn A New Skill")
+ga = Goal.new(name: "Enhance Career Options")
+
 User.all.each do |user|
   Task.all.each do |task|
     user.tasks << task
+  end
+  Goal.all.each do |goal|
+    user.goal << group
   end
 end
 

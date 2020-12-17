@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
-  has_many :users
+  has_many :task_users
+  has_many :users, through: :task_users
   belongs_to :category
   belongs_to :group
   validates_presence_of :name

@@ -1,7 +1,8 @@
 <h1>Welcome <%= @user.username %>!</h1>
-
-
-<% @user.groups.each do |group| %>
+<% if @user.tasks.empty? %>
+<p>You don't have any Tasks.</p>
+<% end %>
+<% @user.groups.uniq.each do |group| %>
 <div class="group-box <%= group.id %> col-xs-10 col-xs-offset-1 color-<%= (1..10).to_a.sample %>">
 <h1>Group Name: </h1><h3><%=link_to group.name, user_group_path(@user, group) %></h3><br>
 <% group.categories.uniq.each do |category| %>

@@ -13,9 +13,35 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :tasks
 
 
-  def category_array
-    self.tasks.map do |task|
-      task.category
-    end
-  end
+  # def group_cat_verify(group, category)
+  #   binding.pry
+  #   if !self.groups.include?(group)
+  #     self.groups << group
+  #   end
+  #     if !self.groups.categories.include?(category)
+  #     a = CategoryUser.new
+  #     a.user_id = self.id
+  #     a.category_id = category.id
+  #     a.save
+  # end
+  
+  # end
+#Why doesn't this method work?
+  # def category_verify(category)
+  #  if !self.category_users.include?(category)
+  #     binding.pry
+  #   #   self.categories << category
+  #   # end
+  #   a = CategoryUser.new
+  #   a.user_id = self.id
+  #   a.category_id = category.id
+  #   a.save
+  #  end
+  # end
+  
+  # def category_array
+  #   self.tasks.map do |task|
+  #     task.category
+  #   end
+  # end
 end

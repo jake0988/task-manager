@@ -15,8 +15,10 @@ class TasksController < ApplicationController
     @user = current_user
     #need to validate that category group and name are not already created
     @task = current_user.tasks.build(task_params)
-    if @user.save
-      binding.pry
+    # how to associate User with Category and Group?
+      # @user.group_cat_verify(@task.group, @task.category)
+      if @user.update
+      # @user.category_verify(@task.category)
       redirect_to user_path(@user)
     else
       render :new

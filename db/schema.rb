@@ -57,8 +57,14 @@ ActiveRecord::Schema.define(version: 2020_12_17_050025) do
     t.index ["category_id"], name: "index_tasks_on_category_id"
   end
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type '' for column 'string'
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "uid"
+  end
 
   add_foreign_key "tasks", "categories"
 end

@@ -13,7 +13,7 @@ class TasksController < ApplicationController
 
   def create
     @user = current_user
-    binding.pry
+    #need to validate that category group and name are not already created
     @task = current_user.tasks.build(task_params)
     if @user.save
       redirect_to user_path(@user)

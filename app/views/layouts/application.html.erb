@@ -37,6 +37,10 @@
     <div><% if flash[:message] %>
       <strong><%= flash[:message] %></strong>
       <% end %>
+    <div><% if !@error.nil?  %>
+      <strong><%= @error %></strong>
+      <% end %>
+      <% @error = nil %>
       </div>
       <%= yield %>
     </div>

@@ -1,5 +1,5 @@
 <div><h1>Group Name: <%= @group.name %></h1><br>
-<% @group.categories.each do |category| %>
+<% @group.categories.uniq.each do |category| %>
 <div><p><h2>Categories: </h2><strong><%= category.name %></strong><br></p>
 <div><h3>Tasks: </h3>
 <ul>

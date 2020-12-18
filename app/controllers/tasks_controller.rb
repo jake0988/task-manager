@@ -16,14 +16,11 @@ class TasksController < ApplicationController
     #need to validate that category group and name are not already created
     @task = current_user.tasks.build(task_params)
     if @user.save
+      binding.pry
       redirect_to user_path(@user)
     else
       render :new
     end
-    # @task.start_time = Time.current
-    # group = Group.find_by_id(params[:group])
-    # binding.pry
-    # @task.group.tasks.find_or_create_by(user_id: current_user.id, name: @task.name, group_id: group.name)
   end
 
   def edit

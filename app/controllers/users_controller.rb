@@ -21,10 +21,8 @@ class UsersController < ApplicationController
     end
 
     def show
-        if params[:id] && current_user = User.find_by_id(params[:id])
-            @user = current_user
-            @categories = @user.category_array if @user.category_array
-            @groups = Group.all
+        if params[:id] && @user = User.find_by_id(params[:id]) && @user = current_user
+            binding.pry
         else
             flash[:message] = "Must be signed in as user to view user's page!"
             redirect_to :root

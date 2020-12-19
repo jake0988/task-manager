@@ -15,9 +15,10 @@ class TasksController < ApplicationController
     @user = current_user
     #need to validate that category group and name are not already created
     @task = current_user.tasks.build(task_params)
+    if @user.save
     # how to associate User with Category and Group?
       # @user.group_cat_verify(@task.group, @task.category)
-      if @user.update
+      # if @user.update
       # @user.category_verify(@task.category)
       redirect_to user_path(@user)
     else
@@ -40,10 +41,10 @@ class TasksController < ApplicationController
   end
 
   def update
-    task = Task.find_by(user_id: session[:user_id], id: params[:task][:id])
+    task = Task.find_by_id(params[:id])
     task.update(task_params)
-    user = User.find_by(id: session[:user_id])
-    redirect_to user_path(user)
+    current_user.save
+    redirect_to user_path(current_user)
   end
 
 
@@ -53,7 +54,7 @@ class TasksController < ApplicationController
       # :id,
       # :user_id,
       :name,
-      # :comment,
+      :comment,
       # :startime,
       # :category_id,
       :category_attributes,

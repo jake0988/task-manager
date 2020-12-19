@@ -1,27 +1,10 @@
 <% @groups.each do |group| %>
 <div class="group-box <%= group.id %> col-xs-10 col-xs-offset-1 color-<%= (1..10).to_a.sample %>">
 <p><h1>Group Name: </h1><h3><%= link_to group.name, group_path(group) %></h3></p>
-      <div><ol>
-      <h2>Group Members:</h2><% group.users.each do |user| %>
-      
-              <% if user.username != nil  %>
-        <li><strong><%= user.username %></strong><li>
-            <% end %>
-
-      <% end %></ol></div>      
-      <% group.categories.uniq.each do |category| %>
-        <div><h2>Category Name: <%= category.name %></h2>
-            <i>Tasks: </i>
-            <% category.tasks.each do |task| %>
-           
-              <div><%= task.name %><br>
-            <% end %></div>
-            
-      <% end %>  
       <% if group.users.include?(current_user)%>
       <%= link_to "Leave Group", edit_user_group_path(current_user, group), :data => {:confirm => 'Are you sure?'} %>
       <% else %>
-      <%= link_to "Join Group", edit_user_group_path(current_user, group), :data => {:confirm => 'Are you sure?'} %>
+      <%= link_to "Join Group", user_group_path(current_user, group), method: :patch %>
       <% end%><%= link_to "Add a task", new_user_task_path(current_user) %></div> 
       
-<% end %></div>    
+<% end %>

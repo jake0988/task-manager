@@ -9,7 +9,6 @@ class GroupsController < ApplicationController
   
   def new
     @group = Group.new
-    @user = current_user
   end
 
   def create
@@ -40,13 +39,13 @@ class GroupsController < ApplicationController
   def edit
     if params[:user_id] && @user = User.find_by_id(params[:user_id])
         @group = Group.find_by_id(params[:id])
-        if @user.groups.include?(@group)
+        # if @user.groups.include?(@group)
           @user.groups.delete(@group)
-        else
+        # else
           
-          render :edit
+        #   render :edit
         
-        end
+        # end
     else
         flash[:message] = "That user doesn't exist"
     end
@@ -54,8 +53,12 @@ class GroupsController < ApplicationController
 
   def update
     group = Group.find_by_id(params[:id])
-    group.users << current_user
-    redirect_to user_path(current_user)
+    if current_user.groups.include?(group)
+                current_user.groups.delete(group)
+    else
+      group.users << current_user
+    end
+    redirect_to action: :index
   end
 
   private

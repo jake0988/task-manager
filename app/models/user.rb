@@ -3,11 +3,10 @@ class User < ApplicationRecord
   has_many :category_users
   has_many :categories, through: :category_users
   has_many :goals
-  has_many :task_users
-  has_many :tasks, through: :task_users
+  has_many :tasks
   has_many :group_users
   has_many :groups, through: :group_users
-  has_many :categories
+  has_many :group_tasks, through: :groups
   validates_presence_of :username
   validates :username, uniqueness: :true
   accepts_nested_attributes_for :tasks

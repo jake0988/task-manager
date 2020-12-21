@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_003605) do
+ActiveRecord::Schema.define(version: 2020_12_19_012603) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2020_12_18_003605) do
   create_table "goals", force: :cascade do |t|
     t.string "name"
     t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "group_tasks", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "category_id"
+    t.integer "goal_id"
+    t.string "comment"
+    t.boolean "complete"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -60,7 +71,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_003605) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "start"
-    t.integer "group_id"
+    t.integer "user_id"
     t.index ["category_id"], name: "index_tasks_on_category_id"
   end
 

@@ -13,7 +13,5 @@
   <%= f.label :name, "Task Name" %>
   <%= f.text_field :name, placeholder: "Required Field" %>
  Category: <%= f.collection_select :category_attributes, Category.all, :name, :name %>
-
-  Group: <%= f.collection_select :group_attributes, Group.all, :name, :name %>
   <%= f.submit %>
 <% end %>

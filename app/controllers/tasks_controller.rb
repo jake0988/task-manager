@@ -7,24 +7,20 @@ class TasksController < ApplicationController
       @task = @user.tasks.build
     else
       @error = "That task doesn't exist."
-      @task = Task.all
+      redirect_to root
     end
   end
 
   def create
-    @user = current_user
     #need to validate that category group and name are not already created
     @task = current_user.tasks.build(task_params)
-    if @user.save
+    current_user.save
     # how to associate User with Category and Group?
       # @user.group_cat_verify(@task.group, @task.category)
       # if @user.update
       # @user.category_verify(@task.category)
-      redirect_to user_path(@user)
-    else
-      render :new
+      redirect_to user_path(current_user)
     end
-  end
 
   def edit
     @task = Task.find_by(id: params[:id])
@@ -60,7 +56,7 @@ class TasksController < ApplicationController
       :category_attributes,
       # :complete,
       # :group_id
-      :group_attributes
+      # :group_attributes
       )
     end
 end

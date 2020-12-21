@@ -46,17 +46,9 @@ class UsersController < ApplicationController
                 user.groups.delete(group)
                 redirect_to user_path(user)
             else
-                # if group.tasks.empty?
-                #     flash[:message] = "A Group must have a task and its category before joining. First assign a task with a category to your Group."
-                #     redirect_to new_user_task_path(user)
-                # else
                     user.groups << group
                     redirect_to user_path(user)
             end
-        # else
-        #     flash[:message] = "User must sign in before updating profile"
-        #     redirect_to '/'
-        # end
     end
 
     private

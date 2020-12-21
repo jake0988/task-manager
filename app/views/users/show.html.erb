@@ -2,31 +2,48 @@
 <% if @user.tasks.empty? %>
 <p>You don't have any Tasks.</p>
 <% end %>
-
-<% @user.tasks.sort_by { |task| task.category.id } %>
-<% arr = [] %>
-<ol> 
-<% @user.tasks.each do |task| %>
-<% if !arr.include?(task.category_id) %>
-<h2>Category: <%= task.category.name %><h2>
-<%= arr << task.category_id %>
+<br>
+<p>
+<h3><b>Your Groups:</b></h3>
+<ol>
+<% @user.groups.uniq.each do |group| %>
+<li><%= link_to group.name, group_path(group) %></li>
 <% end %>
+</ol>
+<p>
+<h3><b>Your Individual Tasks:</b></h3>
+<p>
+<% @user.categories.uniq.each do |category| %>
+<h2>Category: <%= category.name %></h2><br>
+<ol> 
+<% category.tasks.each do |task| %>
+<% if @user.tasks.include?(task)%>
 
+<% com = task.comment.nil? ? "Add Comment" : "Update Comment" %>
  <% if task.complete == true %>
-          <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em>- <i><%= link_to task.group.name, user_group_path(@user, task.group) %></i>
-               <b>Comment:</b> <em><%= task.comment %></em></p>
-          <%= link_to "Add Comment", comment_user_tasks_path(@user, task) %>
+          <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em><br>
+               <% if !task.comment.nil? %>
+               <b>Comment:</b> 
+               <% end %>
+               <em><%= task.comment %></em></p>
+          <%= link_to com, comment_user_tasks_path(@user, task) %>
           <% else %>
-           <p><em><li><%= task.name  %> - <i><%= link_to task.group.name, user_group_path(@user, task.group) %></i> </li></em>
-          <b>Comment:</b> <em><%= task.comment %></em></p>
-         <%= link_to "Add Comment", comment_user_tasks_path(@user, task) %>
+           <p><em><li><%= task.name  %></li></em><br>
+               <% if !task.comment.nil? %>
+                    <b>Comment:</b> 
+               <% end %>
+                <em><%= task.comment %></em></p>          
+         <%= link_to com, comment_user_tasks_path(@user, task) %>
          <%= link_to "Completed?", complete_user_task_path(@user, task, "true") %>
+         <br>
         <% end%>
-        <br>
-  </ol>
+        <hr>
+  <% end %>
+  <br>
+<% end %>
+</ol>
 <% end %>
 </div>
-<%= link_to "Create a Group", new_user_group_path(@user) %>
+<%= link_to "Create a Group", new_group_path %>
 <%= link_to "Join or Leave a Group", groups_path %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
-<%= link_to 'logout', logout_path, :data => {:confirm => "Are you sure?", method: 'delete'}  %>

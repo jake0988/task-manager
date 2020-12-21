@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get '/groups/:id/new', to: 'group_tasks#new', as: 'new_group_task'
   root to: 'users#index'
 
   get '/auth/github/callback' => 'sessions#create'
@@ -13,14 +14,21 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy', as: 'logout'
   
   post '/tasks', to: 'tasks#create'
+  
+  patch '/group_tasks/:id/edit', to: 'group_tasks#update', as: 'group_group_task'
 
   patch '/users/:id/edit', to: 'users#update'
 
+  #Comments
   get '/users/:user_id/tasks/:id/comment', to: 'tasks#edit', as: 'comment_user_tasks'
+  get 'users/:user_id/tasks/:id/:complete', to: 'tasks#edit', as: 'complete_user_task'
+  get '/groups/:group_id/tasks/:id/comment', to: 'group_tasks#edit', as: 'comment_group_task'
+  get 'groups/:group_id/tasks/:id/:complete', to: 'group_tasks#edit', as: 'complete_group_task'
 
+  
   get '/users/:user_id/tasks/:id/edit', to: 'tasks#edit', as: 'edit_user_tasks'
   
-  get 'users/:user_id/tasks/:id/:complete', to: 'tasks#edit', as: 'complete_user_task'
+  
 
   patch '/tasks', to: 'tasks#update'
 
@@ -28,12 +36,11 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     resources :tasks, only: [:new, :create, :update]
-    resources :groups, only: [:new, :create, :show, :update]
   end
 
-  
+  resources :group_tasks
   resources :users
-  resources :groups, only: [:index, :show]
+  resources :groups 
   resources :categories
   
   resources :sessions, only: [:new, :create, :show]

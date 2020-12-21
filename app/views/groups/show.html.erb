@@ -1,15 +1,21 @@
-<div><h1>Group Name: <%= @group.name %></h1><br>
+<div><h1>Group Name: <u><%= @group.name %></u></h1><br>
 <% @group.categories.uniq.each do |category| %>
 <div><p><h2>Categories: </h2><strong><%= category.name %></strong><br></p>
 <div><h3>Tasks: </h3>
 <ul>
-<% category.tasks.each do |task|%>
+<% category.group_tasks.each do |task|%>
+<% com = task.comment.nil? ? "Add Comment" : "Update Comment" %>
 <% if task.complete == true %>
-<del><li><%= task.name %><br></li></del>
-Comment: <%= task.comment %>
-<% else %>
-  <li><%= task.name %><br></li>
-<% end%>
+          <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em><br>
+               <b>Comment:</b> <em><%= task.comment %></em></p>
+          <%= link_to com, comment_group_task_path(@group, task) %>
+          <% else %>
+           <p><em><li><%= task.name  %></li></em><br>
+          <b>Comment:</b> <em><%= task.comment %></em></p>          
+         <%= link_to com, comment_group_task_path(@group, task) %><br>
+         <%= link_to "Completed?", complete_group_task_path(@group, task, "true") %>
+        <% end%>
+        <br>
 </div>
 <% end%>
 </div>
@@ -18,7 +24,7 @@ Comment: <%= task.comment %>
 
 <h3>Group Members:</h3>
 <ul>
-<% @group.users.each do |user|%>
+<% @group.users.uniq.each do |user|%>
 <li><%= user.username %><br></li>
 <% end %>
 </ul>

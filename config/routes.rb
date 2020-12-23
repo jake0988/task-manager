@@ -19,6 +19,16 @@ Rails.application.routes.draw do
 
   patch '/users/:id/edit', to: 'users#update'
 
+  get '/groups/:id/goal', to: 'goals#new'
+
+  post '/goals', to: 'goals#create'
+
+  get '/groups/:id/goal/edit', to: 'goals#edit'
+  
+  patch '/goals', to: 'goals#update'
+
+  # delete '/goals', to: 'goals#destroy'
+
   #Comments
   get '/users/:user_id/tasks/:id/comment', to: 'tasks#edit', as: 'comment_user_tasks'
   get 'users/:user_id/tasks/:id/:complete', to: 'tasks#edit', as: 'complete_user_task'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_23_022649) do
+ActiveRecord::Schema.define(version: 2020_12_25_031238) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -26,14 +26,11 @@ ActiveRecord::Schema.define(version: 2020_12_23_022649) do
   end
 
   create_table "goals", force: :cascade do |t|
-    t.integer "status"
+    t.integer "user_id"
+    t.integer "group_id"
     t.string "name"
-    t.string "image"
-    t.string "achievable_type"
-    t.integer "achievable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["achievable_type", "achievable_id"], name: "index_goals_on_achievable_type_and_achievable_id"
   end
 
   create_table "group_tasks", force: :cascade do |t|
@@ -45,7 +42,6 @@ ActiveRecord::Schema.define(version: 2020_12_23_022649) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "goal"
   end
 
   create_table "group_users", force: :cascade do |t|
@@ -75,8 +71,8 @@ ActiveRecord::Schema.define(version: 2020_12_23_022649) do
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "start"
     t.integer "user_id"
+    t.integer "group_id"
     t.string "goal"
     t.index ["category_id"], name: "index_tasks_on_category_id"
   end

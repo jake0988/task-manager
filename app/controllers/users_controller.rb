@@ -26,6 +26,9 @@ class UsersController < ApplicationController
             flash[:message] = "Must be signed in as user to view user's page!"
             redirect_to :root
         end
+        if !current_user.groups.nil?
+            @group = Group.new
+        end
     end
 
     def edit

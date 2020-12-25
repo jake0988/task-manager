@@ -1,4 +1,23 @@
 <div><h1>Group Name: <u><%= @group.name %></u></h1><br>
+<% if !@group.goal %>
+     <h3>What is the group's goal?</h3>
+     <%= form_with model: Goal.new, method: :patch, url: group_goal_path(@group) do |f| %>
+     <%= f.label :name, "Goal=" %>
+     <%= f.text_field :name %>
+     <%= f.hidden_field :group_id, :value => @group.id %>
+     <%= f.submit "Create Goal" %>
+     <% end %>
+<% else %>
+     <h2>Group Goal: <%= @group.goal.name  %></h2>
+     <h4>Change <%= @group.name.pluralize %> Goal </h4>
+     <%= form_with model: Goal.new, method: :patch, url: group_goal_path(@group) do |f| %>
+     <%= f.label :name, "Goal=" %>
+     <%= f.text_field :name %>
+     <%= f.hidden_field :group_id, :value => @group.id %>
+     <%= f.submit "Create Goal" %>
+     <% end %>
+<% end%>
+
 <% @group.categories.uniq.each do |category| %>
 <div><p><h2>Categories: </h2><strong><%= category.name %></strong><br></p>
 <div><h3>Tasks: </h3>
@@ -21,7 +40,7 @@
 </div>
 <% end %>
 </ul>
-
+<hr>
 <h3>Group Members:</h3>
 <ul>
 <% @group.users.uniq.each do |user|%>
@@ -29,3 +48,7 @@
 <% end %>
 </ul>
 </div>
+<%= link_to "Create a Group", new_group_path %>
+<%= link_to "Join or Leave a Group", groups_path %>
+<%= link_to "Add a task", new_group_group_task_path(@group) %>
+<%= link_to "Add a Goal", group_goals_path(@group) %>

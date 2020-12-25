@@ -2,6 +2,7 @@ class Task < ApplicationRecord
   belongs_to :category
   belongs_to :user
   validates_presence_of :name
+  # validates :name, uniqueness: { scope: :user.tasks, message: "Can't have duplicate tasks"}
 
   # def group_cat_same
   #   if task = Task.find_by(name: self.name)

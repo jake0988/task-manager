@@ -7,43 +7,67 @@
 <h3><b>Your Groups:</b></h3>
 <ol>
 <% @user.groups.uniq.each do |group| %>
-<li><%= link_to group.name, group_path(group) %></li>
+     <li><%= link_to group.name, group_path(group) %></li>
 <% end %>
 </ol>
+<hr>
 <p>
 <h3><b>Your Individual Tasks:</b></h3>
-<p>
 <% @user.categories.uniq.each do |category| %>
-<h2>Category: <%= category.name %></h2><br>
-<ol> 
-<% category.tasks.each do |task| %>
-<% if @user.tasks.include?(task)%>
 
-<% com = task.comment.nil? ? "Add Comment" : "Update Comment" %>
- <% if task.complete == true %>
-          <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em><br>
-               <% if !task.comment.nil? %>
-               <b>Comment:</b> 
-               <% end %>
-               <em><%= task.comment %></em></p>
-          <%= link_to com, comment_user_tasks_path(@user, task) %>
-          <% else %>
-           <p><em><li><%= task.name  %></li></em><br>
+     <h2>Category: <%= category.name %></h2><br>
+     <% category.tasks.each do |task| %>
+     <% if @user.tasks.include?(task)%>
+
+          <% com = task.comment.nil? ? "Add Comment" : "Update Comment" %>
+               <% if task.complete == true %>
+                    <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em>
+                    <% if task.goal.nil? %>
+                         <h3>If this task aims at achieving a goal, please select the goal for the task: </h3>
+                         <%= form_with model: task, method: :patch, url: user_task_path(@user, task) do |f| %>
+                         <%= f.collection_select :goal, Goal.all, :name, :name %>
+                         <%= f.submit %>
+                         <% end %>
+                    <% else %>
+                         <i>Goal= </i><b><%= task.goal %></b>
+                    <% end %><br>
                <% if !task.comment.nil? %>
                     <b>Comment:</b> 
                <% end %>
-                <em><%= task.comment %></em></p>          
-         <%= link_to com, comment_user_tasks_path(@user, task) %>
-         <%= link_to "Completed?", complete_user_task_path(@user, task, "true") %>
-         <br>
-        <% end%>
-        <hr>
-  <% end %>
+               <em><%= task.comment %></em></p>
+               <%= link_to com, comment_user_tasks_path(@user, task) %>
+               <%= link_to "Remove Goal From Task", goal_user_task_path(@user, task, "nil") %>
+                <%= link_to "Delete Task", task_path(task), method: :delete %>
+               <% else %>
+               <p><em><li><%= task.name  %></li></em>
+                <% if task.goal.nil? %>
+                    <h3>If this task aims at achieving a goal, please select the goal for the task: </h3>
+                    <%= form_with model: task, method: :patch, url: user_task_path(@user, task) do |f| %>
+                    <%= f.collection_select :goal, Goal.all, :name, :name %>
+                    <%= f.submit %>
+                    <% end %>
+               <% else %>
+               <i>Goal= </i><b><%= task.goal %></b>
+               <% end %>
+               <% if !task.comment.nil? %>
+                    <b>Comment:</b> 
+               <% end %>
+                    <em><%= task.comment %></em></p>          
+                    <%= link_to com, comment_user_tasks_path(@user, task) %>
+                    <%= link_to "Completed?", complete_user_task_path(@user, task, "true") %>
+                    <%= link_to "Remove Goal From Task", goal_user_task_path(@user, task, "nil")%>
+                    <%= link_to "Delete Task", task_path(task), method: :delete %>
+               <% end%>
+                <br>
+          <% end%>
+         
+     <% end %>
   <br>
-<% end %>
+  <hr>
 </ol>
 <% end %>
 </div>
 <%= link_to "Create a Group", new_group_path %>
 <%= link_to "Join or Leave a Group", groups_path %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
+<%= link_to "Add a Goal", user_goals_path(@user) %>

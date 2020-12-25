@@ -12,13 +12,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    #need to validate that category group and name are not already created
     @task = current_user.tasks.build(task_params)
     current_user.save
-    # how to associate User with Category and Group?
-      # @user.group_cat_verify(@task.group, @task.category)
-      # if @user.update
-      # @user.category_verify(@task.category)
       redirect_to user_path(current_user)
     end
 
@@ -30,8 +25,11 @@ class TasksController < ApplicationController
         flash[:message] = "Already Completed This Task"
       else
         @task.complete = true
-        @task.save!
+        @task.save
       end
+      redirect_to user_path(@user)
+    elsif params[:status]
+      @task.update(goal: nil)
       redirect_to user_path(@user)
     end
   end
@@ -43,20 +41,22 @@ class TasksController < ApplicationController
     redirect_to user_path(current_user)
   end
 
+  def destroy
+    task = Task.find_by_id(params[:id])
+    if current_user.tasks.include?(task)
+      task.delete
+    end
+    redirect_to "/users/#{current_user.id}"
+  end
 
   private
     def task_params
-      params.require(:task).permit(
-      # :id,
-      # :user_id,
+      params.require(:task).permit(      
       :name,
       :comment,
-      # :startime,
-      # :category_id,
       :category_attributes,
-      # :complete,
-      # :group_id
-      # :group_attributes
+      :goal,
+      :status
       )
     end
 end

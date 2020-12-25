@@ -1,9 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :category_users
-  has_many :categories, through: :category_users
-  has_many :goals, as: :achievable
+  
+  has_many :goals
   has_many :tasks
+  has_many :categories, through: :tasks
   has_many :group_users
   has_many :groups, through: :group_users
   has_many :group_tasks, through: :groups

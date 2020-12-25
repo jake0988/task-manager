@@ -26,6 +26,9 @@ class GroupsController < ApplicationController
   def show
     if params[:user_id] && @user = User.find_by_id(params[:user_id])
       @group = Group.find_by_id(params[:id])
+      if @group.goal.nil?
+      @goal = @group.goal.build
+      end
     elsif params[:user_id]
       flash[:message] = "That user doesn't exist"
       redirect_to action: "index"
@@ -65,6 +68,7 @@ class GroupsController < ApplicationController
   def group_params
     params.require(:group).permit(
       :name,
+      :goal
     )
     end
 

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post '/users/:id/tasks', to: 'tasks#create'
   patch '/users/:id/edit', to: 'users#update'
   
+  post '/users/user_id/groups', to: 'groups#create', as: 'user_groups'
+
   post '/groups/:id/group_tasks', to: 'grouptasks#create', as: 'new_group_group_task'
   patch '/group_tasks/:id/edit', to: 'group_tasks#update', as: 'group_group_task'
 
@@ -29,7 +31,7 @@ Rails.application.routes.draw do
   #user goals
   get '/users/:id/goal', to: 'goals#new', as: 'user_goals'
   post '/users/:id/goal', to: 'goals#create'
-  get '/users/:id/goal/:id/edit', to: 'goals#edit', as: 'edit_user_goal'
+  get '/users/:user_id/goal/:id/edit', to: 'goals#edit', as: 'edit_user_goal'
   patch '/goals/:id', to: 'goals#update'
 
   delete '/task/:id', to: 'tasks#destroy', as: 'task'

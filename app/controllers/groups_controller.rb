@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
   
 
   def index
+    @user = current_user
     @groups = Group.all
   end
   
@@ -14,10 +15,11 @@ class GroupsController < ApplicationController
   def create
     @user = current_user
     group = Group.new(group_params)   
-      if @user && !@user.groups.include?(group.name)
+      if @user && !Group.all.include?(group.name)
         group.save
+        group.users << group
       flash[:message] = "#{group.name} has been created!"
-      redirect_to edit_user_path(@user)
+      redirect_to action: :index
     else
       render :new
     end
@@ -28,6 +30,7 @@ class GroupsController < ApplicationController
       @group = Group.find_by_id(params[:id])
       if @group.goal.nil?
       @goal = @group.goal.build
+
       end
     elsif params[:user_id]
       flash[:message] = "That user doesn't exist"

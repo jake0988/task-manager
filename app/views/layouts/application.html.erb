@@ -40,9 +40,9 @@
     <div><% if !@error.nil?  %>
       <strong><%= @error %></strong>
       <% end %>
-      <% @error = nil %>
       </div>
       <%= yield %>
+      <% @error = nil %>
     </div>
   </body>
 </html>

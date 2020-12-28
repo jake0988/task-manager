@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get '/groups/:id', to: 'groups#show', as: 'group'
   get '/groups/:id/new', to: 'group_tasks#new', as: 'new_group_task'
   root to: 'users#index'
 
@@ -16,7 +17,9 @@ Rails.application.routes.draw do
   post '/users/:id/tasks', to: 'tasks#create'
   patch '/users/:id/edit', to: 'users#update'
   
-  post '/users/user_id/groups', to: 'groups#create', as: 'user_groups'
+  post '/users/:user_id/groups', to: 'groups#create', as: 'user_groups'
+
+  get '/users/most_tasks', to: 'users#most_tasks', as: 'most_tasks'
 
   post '/groups/:id/group_tasks', to: 'grouptasks#create', as: 'new_group_group_task'
   patch '/group_tasks/:id/edit', to: 'group_tasks#update', as: 'group_group_task'
@@ -47,7 +50,6 @@ Rails.application.routes.draw do
   get '/users/:user_id/tasks/:id/edit', to: 'tasks#edit', as: 'edit_user_tasks'
   
   
-
   patch '/users/user_id/tasks/:id', to: 'tasks#update'
   get '/users/:user_id/groups/:id/edit', to: 'groups#edit', as: 'edit_user_group'
   get '/users/:user_id/tasks/:id/goal/:status', to: 'tasks#edit', as: 'goal_user_task'

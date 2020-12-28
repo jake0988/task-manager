@@ -1,3 +1,12 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <h1>Welcome <%= @user.username %>!</h1>
 <% if @user.tasks.empty? %>
 <p>You don't have any Tasks.</p>

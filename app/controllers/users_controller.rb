@@ -20,6 +20,9 @@ class UsersController < ApplicationController
         end
     end
 
+    def most_tasks
+    end
+
     def show
         if params[:id] && @user = User.find_by_id(params[:id]) && @user = current_user
         else
@@ -43,7 +46,6 @@ class UsersController < ApplicationController
     def update
             user = User.find_by_id(params[:id])
             redirect_to groups_path if !user == current_user
-            binding.pry 
             group = Group.find(params[:user][:group][:id])
             if params[:commit] == "Leave Group"
                 user.groups.delete(group)

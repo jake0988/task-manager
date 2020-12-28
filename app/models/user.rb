@@ -12,7 +12,9 @@ class User < ApplicationRecord
   validates :username, uniqueness: :true
   accepts_nested_attributes_for :tasks
 
-
+  scope :most_tasks, -> {left_joins(:tasks).group('users.id').order('count(tasks.user_id)') }
+  scope :most_unfinished_tasks, -> { most_tasks.where('complete = true').limit(1) }
+  
   # def group_cat_verify(group, category)
   #   binding.pry
   #   if !self.groups.include?(group)

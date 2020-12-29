@@ -12,6 +12,12 @@
 <%= form_for([@user, @task]) do |f| %>
   <%= f.label :name, "Task Name" %>
   <%= f.text_field :name, placeholder: "Required Field" %>
- Category: <%= f.collection_select :category_attributes, Category.all, :name, :name %>
+ <%= f.label :category_name, "Select or Add a Category"  %>
+  <em><%= f.text_field :category_name, list: "categories_autocomplete", placeholder: "Required Field" %></em>
+   <datalist id="categories_autocomplete">
+    <% Category.all.each do |category| %>
+      <option value=<%= category.name %>>
+      <% end %>
+   </datalist>
   <%= f.submit %>
 <% end %>

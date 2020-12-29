@@ -3,4 +3,5 @@
   <%= link_to('Log in with Github!', '/auth/github') %>
 <% else %>
   Welcome <%= current_user.username %>!
+  email: <%= current_user.email %>
 <% end%>

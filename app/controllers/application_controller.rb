@@ -13,7 +13,11 @@ class ApplicationController < ActionController::Base
     def current_user
         @current_user ||= User.find_by(:id => session[:user_id]) if session[:user_id]
     end
-  
+ 
+    def current_group
+      @current_group ||= Group.find_or_create_by(id: params[:group_id]) if params[:group_id]
+    end
+    
     def logged_in?
         !!session[:user_id]
     end

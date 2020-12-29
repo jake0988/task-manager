@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  get '/groups/:id', to: 'groups#show', as: 'group'
+  # get '/groups/new', to: 'groups#new', as: 'new_group'
+  # get '/groups/:id', to: 'groups#show', as: 'group'
   get '/groups/:id/new', to: 'group_tasks#new', as: 'new_group_task'
   root to: 'users#index'
 
@@ -21,7 +22,9 @@ Rails.application.routes.draw do
 
   get '/users/most_tasks', to: 'users#most_tasks', as: 'most_tasks'
 
-  post '/groups/:id/group_tasks', to: 'grouptasks#create', as: 'new_group_group_task'
+
+  get '/groups/:id/group_tasks', to: 'group_tasks#new', as: 'new_group_group_task'
+  post '/groups/:id/group_tasks', to: 'group_tasks#create', as: 'group_tasks'
   patch '/group_tasks/:id/edit', to: 'group_tasks#update', as: 'group_group_task'
 
   patch '/groups/:group_id/goal', to: 'goals#create', as: 'group_goal'
@@ -39,18 +42,22 @@ Rails.application.routes.draw do
 
   delete '/task/:id', to: 'tasks#destroy', as: 'task'
 
+  delete 'groups/:group_id/task/:id', to: 'group_tasks#destroy', as: 'group_task'
+
   #Comments
   get '/users/:user_id/tasks/:id/comment', to: 'tasks#edit', as: 'comment_user_tasks'
+  patch '/users/:user_id/tasks/:id/comment', to: 'tasks#update', as: 'update_comment_user_tasks'
   
   
   get '/groups/:group_id/tasks/:id/comment', to: 'group_tasks#edit', as: 'comment_group_task'
-  
+  patch '/groups/:group_id/tasks/:id/comment', to: 'group_tasks#update', as: 'update_comment_group_task'
 
   
   get '/users/:user_id/tasks/:id/edit', to: 'tasks#edit', as: 'edit_user_tasks'
   
   
-  patch '/users/user_id/tasks/:id', to: 'tasks#update'
+
+  patch '/users/:user_id/tasks/:id', to: 'tasks#update'
   get '/users/:user_id/groups/:id/edit', to: 'groups#edit', as: 'edit_user_group'
   get '/users/:user_id/tasks/:id/goal/:status', to: 'tasks#edit', as: 'goal_user_task'
   get 'groups/:group_id/tasks/:id/:complete', to: 'group_tasks#edit', as: 'complete_group_task'
@@ -61,12 +68,8 @@ Rails.application.routes.draw do
     resources :tasks, only: [:new, :create, :update]
   end
 
-  resources :group_tasks
-  resources :users
-  resources :groups 
-  resources :categories
+  resources :groups
   
-  resources :sessions, only: [:new, :create, :show]
 
   
 

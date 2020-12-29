@@ -1,3 +1,5 @@
+<%= render partial: "layouts/errors", locals: {object: @group} %>
+
 <div><h1>Group Name: <u><%= @group.name %></u></h1><br>
 <% if !@group.goal %>
      <h3>What is the group's goal?</h3>
@@ -14,7 +16,7 @@
      <%= f.label :name, "Goal=" %>
      <%= f.text_field :name %>
      <%= f.hidden_field :group_id, :value => @group.id %>
-     <%= f.submit "Create Goal" %>
+     <%= f.submit "Change Goal", :data => {:confirm => 'Are you sure?'} %>
      <% end %>
 <% end%>
 
@@ -34,6 +36,7 @@
          <%= link_to com, comment_group_task_path(@group, task) %><br>
          <%= link_to "Completed?", complete_group_task_path(@group, task, "true") %>
         <% end%>
+        <%= link_to "Delete Task", group_task_path(@group, task), method: 'delete' %>
         <br>
         <hr>
 </div>
@@ -50,6 +53,5 @@
 </ul>
 </div>
 <%= link_to "Create a Group", new_group_path %>
-<%= link_to "Join or Leave a Group", groups_path %>
+<%= link_to "View All Groups", groups_path %>
 <%= link_to "Add a task", new_group_group_task_path(@group) %>
-<%= link_to "Add a Goal", group_goals_path(@group) %>

@@ -13,26 +13,18 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @user = current_user
-    group = Group.new(group_params)   
-      if @user && !Group.all.include?(group.name)
-        group.save
-        group.users << group
-      flash[:message] = "#{group.name} has been created!"
+    @group = Group.new(group_params)   
+        @group.users << current_user
+        @group.save
+      flash[:message] = "#{@group.name} has been created!"
       redirect_to action: :index
-    else
-      render :new
-    end
   end
 
   def show
-      @group = Group.find_by_id(params[:id])
-      if @group  
-        # if @group.goal.nil?
-        #   @goal = @group.goal.build
-        # end
-      else
-        flash[:message] = "That group doesn't exist"
+    @group = Group.find_by_id(params[:id])
+    if @group.users.include?(current_user)
+    else
+        flash[:message] = "You are not a member of that group"
       redirect_to action: "index"
     end
   end
@@ -59,6 +51,18 @@ class GroupsController < ApplicationController
     else
       group.users << current_user
     end
+    redirect_to group_path(group)
+  end
+
+  def destroy
+    if @group = Group.find_by_id(params[:id])
+      if @group.users.include?(current_user)
+        flash[:message] = "#{@group.name} has been deleted"
+        @group.delete
+      else
+        flash[:message] = "Must be a member of #{group.name} to delete"
+      end
+    end
     redirect_to action: :index
   end
 
@@ -66,7 +70,9 @@ class GroupsController < ApplicationController
   def group_params
     params.require(:group).permit(
       :name,
-      :goal
+      :goal,
+      :category_name,
+      :id
     )
     end
 

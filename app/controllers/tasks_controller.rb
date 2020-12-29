@@ -14,6 +14,7 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build(task_params)
     current_user.save
+    
       redirect_to user_path(current_user)
     end
 
@@ -21,6 +22,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id])
     @user = User.find_by(id: session[:user_id])
     if params[:complete] && params[:complete] == "true"
+      
       if @task.complete == true
         flash[:message] = "Already Completed This Task"
       else
@@ -54,7 +56,8 @@ class TasksController < ApplicationController
       params.require(:task).permit(      
       :name,
       :comment,
-      :category_attributes,
+      :category_name,
+      :category,
       :goal,
       :status
       )

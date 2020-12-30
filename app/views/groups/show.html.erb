@@ -1,5 +1,3 @@
-<%= render partial: "layouts/errors", locals: {object: @group} %>
-
 <div><h1>Group Name: <u><%= @group.name %></u></h1><br>
 <% if !@group.goal %>
      <h3>What is the group's goal?</h3>
@@ -36,7 +34,7 @@
          <%= link_to com, comment_group_task_path(@group, task) %><br>
          <%= link_to "Completed?", complete_group_task_path(@group, task, "true") %>
         <% end%>
-        <%= link_to "Delete Task", group_task_path(@group, task), method: 'delete' %>
+        <%= link_to "Delete Task", group_group_task_path(@group, task), method: 'delete' %>
         <br>
         <hr>
 </div>

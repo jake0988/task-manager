@@ -8,9 +8,10 @@ class User < ApplicationRecord
   has_many :group_users
   has_many :groups, through: :group_users
   has_many :group_tasks, through: :groups
-  validates_presence_of :username
+  validates_presence_of :username, :email
   validates :username, uniqueness: :true
   accepts_nested_attributes_for :tasks
+
 
   scope :most_tasks, -> {left_joins(:tasks).group('users.id').order('count(tasks.user_id)') }
   scope :most_unfinished_tasks, -> { most_tasks.where('complete = true').limit(1) }

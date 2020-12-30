@@ -1,5 +1,3 @@
-<%= render partial: "layouts/errors", locals: {object: @user} %>
-
 <h1>Welcome <%= @user.username %>!</h1>
 <% if @user.tasks.empty? %>
 <p>You don't have any Tasks.</p>
@@ -39,13 +37,13 @@
                <em><%= task.comment %></em></p>
                <%= link_to com, comment_user_tasks_path(@user, task) %>
                <%= link_to "Remove Goal From Task", goal_user_task_path(@user, task, "nil") %>
-                <%= link_to "Delete Task", task_path(task), method: :delete %>
+                <%= link_to "Delete Task", user_task_path(@user, task), method: :delete %>
                <% else %>
                <p><em><li><%= task.name  %></li></em>
                 <% if task.goal.nil? %>
                     <h3>If this task aims at achieving a goal, please select the goal for the task: </h3>
                     <%= form_with model: task, method: :patch, url: user_task_path(@user, task) do |f| %>
-                    <%= f.collection_select :goal, Goal.all, :name, :name %>
+                    <%= f.collection_select :goal, Goal.all, :name, :name, include_blank: true %>
                     <%= f.submit %>
                     <% end %>
                <% else %>
@@ -58,7 +56,7 @@
                     <%= link_to com, comment_user_tasks_path(@user, task) %>
                     <%= link_to "Completed?", complete_user_task_path(@user, task, "true") %>
                     <%= link_to "Remove Goal From Task", goal_user_task_path(@user, task, "nil")%>
-                    <%= link_to "Delete Task", task_path(task), method: :delete %>
+                    <%= link_to "Delete Task", user_task_path(@user, task), method: :delete %>
                <% end%>
                 <br>
           <% end%>
@@ -69,7 +67,10 @@
 </ol>
 <% end %>
 </div>
+
+
+<%= link_to "Join or Leave a Group", edit_user_path(@user) %>
 <%= link_to "Create a Group", new_group_path %>
-<%= link_to "Join or Leave a Group", groups_path %>
+<%= link_to "View All Groups", groups_path %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
-<%= link_to "Add a Goal", user_goals_path(@user) %>
+<%= link_to "Add a Goal", new_user_goal_path(@user) %>

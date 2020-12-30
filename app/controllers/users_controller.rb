@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
     def edit
         if params[:id] && @user = User.find_by_id(params[:id])
-            render :edit
+            # render :edit
         else
             flash[:message] = "Must be signed in as user to edit user's page!"
             redirect_to :root

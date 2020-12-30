@@ -14,10 +14,14 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)   
-        @group.users << current_user
-        @group.save
+    @group.users << current_user
+    
+    if @group.save
       flash[:message] = "#{@group.name} has been created!"
       redirect_to action: :index
+    else
+      render :new
+    end
   end
 
   def show
@@ -32,13 +36,7 @@ class GroupsController < ApplicationController
   def edit
     if params[:user_id] && @user = User.find_by_id(params[:user_id])
         @group = Group.find_by_id(params[:id])
-        # if @user.groups.include?(@group)
-          @user.groups.delete(@group)
-        # else
-          
-        #   render :edit
-        
-        # end
+        @user.groups.delete(@group)
     else
         flash[:message] = "That user doesn't exist"
     end

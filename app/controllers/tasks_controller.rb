@@ -13,34 +13,42 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    current_user.save
-    
+    @user = current_user
+    if current_user.save
       redirect_to user_path(current_user)
+    else
+      render :new
     end
+  end
 
   def edit
     @task = Task.find_by(id: params[:id])
     @user = User.find_by(id: session[:user_id])
+    
     if params[:complete] && params[:complete] == "true"
-      
-      if @task.complete == true
-        flash[:message] = "Already Completed This Task"
-      else
-        @task.complete = true
-        @task.save
-      end
-      redirect_to user_path(@user)
+      @task.complete = true
+    
     elsif params[:status]
       @task.update(goal: nil)
       redirect_to user_path(@user)
+    end
+
+    if @task.save
+      redirect_to user_path(@user)
+    else
+      render :edit
     end
   end
 
   def update
     task = Task.find_by_id(params[:id])
-    task.update(task_params)
-    current_user.save
-    redirect_to user_path(current_user)
+    
+    if task.update(task_params)
+      current_user.save
+      redirect_to user_path(current_user)
+    else
+      render :edit
+    end
   end
 
   def destroy

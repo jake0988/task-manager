@@ -13,7 +13,7 @@
 </ol>
       <% if group.users.include?(current_user)%>
       <%= link_to "Leave Group", group_path(group), method: :patch, :data => {:confirm => 'Are you sure?'} %>
-      <%= link_to "Add a task", new_group_task_path(group) %></div> 
+      <%= link_to "Add a task", group_group_tasks_path(group) %></div> 
       <%= link_to "Delete Group", group_path(group), method: :delete %>
       <% else %>
       <%= link_to "Join Group", group_path(group), method: :patch %>

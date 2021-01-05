@@ -1,0 +1,8 @@
+<h1>Edit Goal</h1>
+<%= render partial: "layouts/errors", locals: {object: @goal} %>
+
+<%= form_for([@var, @goal]) do |f| %>
+  <%= f.label :name %>
+  <%= f.name :name %>
+  <%= f.submit %>
+  <% end %>

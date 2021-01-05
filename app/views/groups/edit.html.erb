@@ -1,0 +1,7 @@
+<%= render partial: "layouts/errors", locals: {object: @group} %>
+
+<%= form_for ([@user, @group]) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit "Join Group"%>
+<% end %>

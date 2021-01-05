@@ -1,0 +1,15 @@
+<%= render partial: "layouts/errors", locals: {object: @user} %>
+
+<%= form_for(@user) do |f| %>
+<%= f.fields_for :group do |b|%>
+<%= b.collection_select :id, Group.all, :id, :name %>
+<% end %>
+<%= f.submit "Join Group"%>
+<% end %>
+
+<%= form_for(@user) do |f| %>
+<%= f.fields_for :group do |b|%>
+<%= b.collection_select :id, @user.groups, :id, :name %>
+<% end %>
+<%= f.submit "Leave Group"%>
+<% end %>

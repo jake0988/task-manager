@@ -1,7 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :category
   belongs_to :user
-  has_one :comment
   validates_presence_of :name
   validate :task_name_unique_for_user
   scope :alpha, -> { order(:name) }

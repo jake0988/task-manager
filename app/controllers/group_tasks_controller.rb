@@ -30,9 +30,8 @@ class GroupTasksController < ApplicationController
     end
   
     def edit
-      binding.pry
       if @task = GroupTask.find_by(id: params[:id])
-      @group = current_group
+      @group = Group.find_by_id(params[:group_id])
       if params[:complete] && params[:complete] == "true"
           @task.complete = true
           @task.save
@@ -45,8 +44,9 @@ class GroupTasksController < ApplicationController
     end
   
     def update
-      binding.pry
-      if @group = Group.find_by_id(params[:group_id]) && @task = GroupTask.find_by_id(params[:id])
+   
+      if @group = Group.find_by_id(params[:group_id])
+        @task = GroupTask.find_by_id(params[:id])
         if @task.update(group_task_params)
         redirect_to group_path(current_group)
         else
@@ -75,7 +75,8 @@ class GroupTasksController < ApplicationController
         :name,
         :comment,
         :category_name,
-        :group_name
+        :group_name,
+        :group_id
         )
       end
 end

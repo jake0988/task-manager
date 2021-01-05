@@ -10,10 +10,10 @@
   </div>
 <% end %>
 
-<%= form_for([@group, @task.comments], url: comment_group_task_path(@group, @task)) do |f| %>
+<%= form_for([@group, @task], url: comment_group_task_path(@group, @task)) do |f| %>
   <% sub = @task.comment.nil? ? "Add Comment" : "Update Comment"%>
-    <div><%= f.label :content %>
-   <%= f.text_area :content %></div>
+    <div><%= f.label :comment %>
+   <%= f.text_area :comment %></div>
   <%= f.submit sub %>
 <% end %>
  

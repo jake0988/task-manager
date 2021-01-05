@@ -10,14 +10,16 @@ class Group < ApplicationRecord
   
   
   
-  def my_link_to(text, href)
-    if !group_member
-    flash[:message] = "Must be a part of group to view page" if self.users.include?(current_user)
-    redirect_to request.referrer
-    else 
-      "<a href='#{href}'>#{text}</a>".html_safe
-    end
-  end
+  # def my_link_to(text, href)
+  #   if !group_member
+  #   flash[:message] = "Must be a part of group to view page" if self.users.include?(current_user)
+  #   redirect_to request.referrer
+  #   else 
+  #     "<a href='#{href}'>#{text}</a>".html_safe
+  #   end
+  # end
+
+
 
   def group_member?
     self.users.include?(@user)

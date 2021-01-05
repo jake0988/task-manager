@@ -20,6 +20,7 @@
         <% if logged_in? %>
       
           <%= link_to "#{current_user.username}'s user profile", user_path(current_user), class:"navbar-brand"%>
+          <%= link_to "View All Groups", groups_path %>
           <%= link_to "Log Out", logout_path, class:"navbar-brand",method:'delete' %>
         <% end %>
         <%= link_to 'User with most tasks yet to complete', most_tasks_path %>

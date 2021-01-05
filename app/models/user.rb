@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :group_users
   has_many :groups, through: :group_users
   has_many :group_tasks, through: :groups
-  validates_presence_of :username, :email
+  validates_presence_of :username
   validates :username, uniqueness: :true
   accepts_nested_attributes_for :tasks
 

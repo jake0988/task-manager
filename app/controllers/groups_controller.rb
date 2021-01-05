@@ -18,17 +18,24 @@ class GroupsController < ApplicationController
     
     if @group.save
       flash[:message] = "#{@group.name} has been created!"
-      redirect_to action: :index
+      render :show
     else
       render :new
     end
   end
 
   def show
-    @group = Group.find_by_id(params[:id])
-    if @group.users.include?(current_user)
-    else
+    if @group = Group.find_by_id(params[:id])
+    
+      if @group.users.include?(current_user)
+    
+      else
         flash[:message] = "You are not a member of that group"
+        redirect_to action: "index"
+      end
+    
+    else
+      flash[:message] = "That Group doesn't exist."
       redirect_to action: "index"
     end
   end
@@ -43,13 +50,13 @@ class GroupsController < ApplicationController
   end
 
   def update
-    group = Group.find_by_id(params[:id])
-    if current_user.groups.include?(group)
-                current_user.groups.delete(group)
+    @group = Group.find_by_id(params[:id])
+    if current_user.groups.include?(@group)
+                current_user.groups.delete(@group)
     else
-      group.users << current_user
+      @group.users << current_user
     end
-    redirect_to group_path(group)
+    redirect_to group_path(@group)
   end
 
   def destroy

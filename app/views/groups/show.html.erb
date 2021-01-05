@@ -1,7 +1,7 @@
 <div><h1>Group Name: <u><%= @group.name %></u></h1><br>
 <% if !@group.goal %>
      <h3>What is the group's goal?</h3>
-     <%= form_with model: Goal.new, method: :patch, url: group_goal_path(@group) do |f| %>
+     <%= form_with model: Goal.new, method: :post, url: group_goals_path(@group) do |f| %>
      <%= f.label :name, "Goal=" %>
      <%= f.text_field :name %>
      <%= f.hidden_field :group_id, :value => @group.id %>
@@ -10,7 +10,7 @@
 <% else %>
      <h2>Group Goal: <%= @group.goal.name  %></h2>
      <h4>Change <%= @group.name.pluralize %> Goal </h4>
-     <%= form_with model: Goal.new, method: :patch, url: group_goal_path(@group) do |f| %>
+     <%= form_with model: @group.goal, method: :patch, url: group_goal_path(@group, @group.goal) do |f| %>
      <%= f.label :name, "Goal=" %>
      <%= f.text_field :name %>
      <%= f.hidden_field :group_id, :value => @group.id %>

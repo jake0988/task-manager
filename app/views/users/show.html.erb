@@ -7,7 +7,7 @@
 <h3><b>Your Groups:</b></h3>
 <ol>
 <% @user.groups.uniq.each do |group| %>
-     <li><%= link_to group.name, group_path(group) %></li>
+     <li><%= link_to group.name, group_path(group) %> - Goal: <%= group.goal.name %></li>
 <% end %>
 </ol>
 <hr>
@@ -71,6 +71,5 @@
 
 <%= link_to "Join or Leave a Group", edit_user_path(@user) %>
 <%= link_to "Create a Group", new_group_path %>
-<%= link_to "View All Groups", groups_path %>
 <%= link_to "Add a task", new_user_task_path(@user) %>
 <%= link_to "Add a Goal", new_user_goal_path(@user) %>

@@ -46,12 +46,12 @@ Rails.application.routes.draw do
   # delete 'groups/:group_id/task/:id', to: 'group_tasks#destroy', as: 'group_task'
 
   #Comments
-  get '/users/:user_id/tasks/:id/comment', to: 'tasks#edit', as: 'comment_user_tasks'
-  patch '/users/:user_id/tasks/:id/comment', to: 'tasks#update', as: 'update_comment_user_tasks'
+  get '/users/:user_id/tasks/:id/comment', to: 'comments#edit', as: 'comment_user_tasks'
+  patch '/users/:user_id/tasks/:id/comment', to: 'comments#update', as: 'update_comment_user_tasks'
   
   
-  get '/groups/:group_id/tasks/:id/comment', to: 'group_tasks#edit', as: 'comment_group_task'
-  patch '/groups/:group_id/tasks/:id/comment', to: 'group_tasks#update', as: 'update_comment_group_task'
+  get '/groups/:group_id/tasks/:id/comment', to: 'comments#edit', as: 'comment_group_task'
+  patch '/groups/:group_id/tasks/:id/comment', to: 'comments#update', as: 'update_comment_group_task'
 
   
  
@@ -73,7 +73,7 @@ Rails.application.routes.draw do
 
   resources :groups do
     resources :group_tasks, only: [:new, :create, :update, :destroy]
-    resources :goal, only: [:new, :create, :edit, :update]
+    resources :goals, only: [:new, :create, :edit, :update]
   end
   
 

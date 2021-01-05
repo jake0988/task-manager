@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   get 'users/:user_id/tasks/:id/:complete', to: 'tasks#edit', as: 'complete_user_task'
   
 
-  resources :users, only: [:show, :edit] do
+  resources :users, only: [:show, :edit, :update] do
     # resources :tasks, only: [:new, :create, :edit, :update]
     resources :tasks, only: [:new, :create, :edit, :update, :destroy]
     resources :goals, only: [:new, :create, :show, :edit, :update]

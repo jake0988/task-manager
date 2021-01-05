@@ -7,7 +7,10 @@
 <h3><b>Your Groups:</b></h3>
 <ol>
 <% @user.groups.uniq.each do |group| %>
-     <li><%= link_to group.name, group_path(group) %> - Goal: <%= group.goal.name %></li>
+     <li><%= link_to group.name, group_path(group) %> - Goal: 
+     <% if group.goal %>
+     <%= group.goal.name %></li>
+     <% end %>
 <% end %>
 </ol>
 <hr>

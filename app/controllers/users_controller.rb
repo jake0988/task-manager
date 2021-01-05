@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        if params[:id] && @user = User.find_by_id(params[:id]) && @user = current_user
+        if @user = User.find_by_id(params[:id])
         else
             flash[:message] = "Must be signed in as user to view user's page!"
             redirect_to :root
@@ -44,6 +44,7 @@ class UsersController < ApplicationController
     end
 
     def update
+        binding.pry
             user = User.find_by_id(params[:id])
             redirect_to groups_path if !user == current_user
             group = Group.find(params[:user][:group][:id])
@@ -63,7 +64,6 @@ class UsersController < ApplicationController
           :username,
           :password,
           :email,
-          :admin,
           group_ids:[],
           group: [
               :name

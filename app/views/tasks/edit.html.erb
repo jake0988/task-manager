@@ -1,0 +1,11 @@
+<%= render partial: "layouts/errors", locals: {object: @task} %>
+
+<h1><%= @task.name %></h1>
+
+<%= form_for([@user, @task]) do |f| %>
+  <% sub = @task.comment.nil? ? "Add Comment" : "Update Comment"%>
+    <div><%= f.label :comment %>
+   <%= f.text_area :comment %></div>
+  <%= f.submit sub %>
+<% end %>
+ 

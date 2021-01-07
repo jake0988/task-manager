@@ -30,5 +30,5 @@ class ApplicationController < ActionController::Base
       if !logged_in?
         redirect_to login_path, :notice => "Please login first!"
       end
-    end
+    end    
 end

@@ -4,16 +4,13 @@ class GroupTask < ApplicationRecord
   belongs_to :group
   has_many :users, through: :group
   validates :name, presence: true
-  # validate :task_name_unique_for_group
+  validate :group_task_name_not_duplicate
   
 
-  # def task_name_unique_for_group
-  #   group = Group.find_by_id(self.group_id)
-  #   group.group_tasks.select do |task|
-  #     if task.name == self.name
-  #       #Why does it add "Task" to error?
-  #       errors.add(:group_task_id, "name already taken")
-  #     end
-  #   end
-  # end
+  def group_task_name_not_duplicate
+    task = GroupTask.find_by(name: name, group_id: group_id)
+      if !!task && task != self
+      errors.add(self.name, "is already a task.")
+    end
+  end
 end

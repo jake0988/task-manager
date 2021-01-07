@@ -44,7 +44,6 @@ class GroupTasksController < ApplicationController
     end
   
     def update
-   
       if @group = Group.find_by_id(params[:group_id])
         @task = GroupTask.find_by_id(params[:id])
         if @task.update(group_task_params)

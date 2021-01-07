@@ -27,28 +27,21 @@ class TasksController < ApplicationController
     
     if params[:complete] && params[:complete] == "true"
       @task.complete = true
-    
-    elsif params[:status]
-      @task.update(goal: nil)
+    @task.save
       redirect_to user_path(@user)
-    end
-
-    if @task.save
-      redirect_to user_path(@user)
-    else
-      render :edit
     end
   end
 
   def update
     task = Task.find_by_id(params[:id])
-    
     if task.update(task_params)
       current_user.save
+      
       redirect_to user_path(current_user)
     else
       render :edit
     end
+    
   end
 
   def destroy

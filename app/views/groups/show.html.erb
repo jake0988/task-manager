@@ -22,7 +22,10 @@
 <div><p><h2>Categories: </h2><strong><%= category.name %></strong><br></p>
 <div><h3>Tasks: </h3>
 <ul>
-<% category.group_tasks.each do |task|%>
+<% @group.group_tasks.each do |task|%>
+<% if task.category != category %>
+<% next %>
+<% end %>
 <% com = task.comment.nil? ? "Add Comment" : "Update Comment" %>
 <% if task.complete == true %>
           <del><p><em><li><%= task.name  %></li></em></del><em> (Task Completed!)</em><br>

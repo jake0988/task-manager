@@ -6,6 +6,13 @@
   <% sub = @task.comment.nil? ? "Add Comment" : "Update Comment"%>
     <div><%= f.label :comment %>
    <%= f.text_area :comment %></div>
+   <%= f.label :goal, "Select or Create A Goal"  %>
+  <em><%= f.text_field :goal, list: "goals_autocomplete" %></em>
+   <datalist id="goals_autocomplete">
+    <% Goal.all.each do |goal| %>
+      <option value=<%= goal.name %>>
+      <% end %>
+   </datalist>
   <%= f.submit sub %>
 <% end %>
  

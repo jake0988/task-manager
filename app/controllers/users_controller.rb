@@ -24,11 +24,13 @@ class UsersController < ApplicationController
     end
 
     def show
+        # binding.pry
         if @user = User.find_by_id(params[:id])
         else
             flash[:message] = "Must be signed in as user to view user's page!"
             redirect_to :root
         end
+        
         if !current_user.groups.nil?
             @group = Group.new
         end
@@ -36,7 +38,6 @@ class UsersController < ApplicationController
 
     def edit
         if params[:id] && @user = User.find_by_id(params[:id])
-            # render :edit
         else
             flash[:message] = "Must be signed in as user to edit user's page!"
             redirect_to :root
@@ -44,7 +45,6 @@ class UsersController < ApplicationController
     end
 
     def update
-        binding.pry
             user = User.find_by_id(params[:id])
             redirect_to groups_path if !user == current_user
             group = Group.find(params[:user][:group][:id])

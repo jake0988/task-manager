@@ -45,20 +45,26 @@
                <p><em><li><%= task.name  %></li></em>
                 <% if task.goal.nil? %>
                     <h3>If this task aims at achieving a goal, please select the goal for the task: </h3>
-                    <%= form_with model: task, method: :patch, url: user_task_path(@user, task) do |f| %>
-                    <%= f.collection_select :goal, Goal.all, :name, :name, include_blank: true %>
-                    <%= f.submit %>
+                    <%= form_with model: task, method: :patch, url: user_task_path(@user, task) do |f| %> 
+                    <%= f.label :goal, "Select or Create A Goal"  %>
+  <em><%= f.text_field :goal, list: "goals_autocomplete" %></em>
+   <datalist id="goals_autocomplete">
+    <% Goal.all.each do |goal| %>
+      <option value=<%= goal.name %>>
+      <% end %>
+   </datalist>
+   <%= f.submit %>
                     <% end %>
                <% else %>
                <i>Goal= </i><b><%= task.goal %></b>
-               <% end %>
+               <% end %><br>
                <% if !task.comment.nil? %>
                     <b>Comment:</b> 
                <% end %>
                     <em><%= task.comment %></em></p>          
                     <%= link_to com, comment_user_tasks_path(@user, task) %>
                     <%= link_to "Completed?", complete_user_task_path(@user, task, "true") %>
-                    <%= link_to "Remove Goal From Task", goal_user_task_path(@user, task, "nil")%>
+                    <%= link_to "Change Goal", goal_user_task_path(@user, task, "nil")%>
                     <%= link_to "Delete Task", user_task_path(@user, task), method: :delete %>
                <% end%>
                 <br>
